@@ -1,0 +1,180 @@
+@import "tailwindcss";
+
+/* ─── Steppa Design System ─────────────────────────────────── */
+@theme {
+  /* Brand Colors */
+  --color-brand:          #F16746;
+  --color-brand-hover:    #d4481f;
+  --color-brand-dark:     #5e160a;
+  --color-brand-200:      #ffb89e;
+  --color-brand-100:      #ffd9cc;
+  --color-brand-light:    #fff3ef;
+
+  /* Interactive */
+  --color-interactive:    #0052FF;
+
+  /* Neutral */
+  --color-white:          #ffffff;
+  --color-neutral-50:     #fafafa;
+  --color-neutral-300:    #9898ac;
+
+  /* Text */
+  --color-text-heading:   #5e160a;
+  --color-text-heading-2: #080814;
+  --color-text-heading-3: #0b1220;
+  --color-text-sub:       #444459;
+  --color-text-secondary: #64748b;
+  --color-text-on-brand:  #ffffff;
+
+  /* Border */
+  --color-border-action:    #f78b68;
+  --color-border-pressed:   #d4481f;
+  --color-border-unselected:#e0e0e8;
+  --color-border-divider:   #e6e9ef;
+  --color-border-icon-dim:  #9898ac;
+
+  /* Font Families */
+  --font-manrope: var(--font-manrope), "Manrope", sans-serif;
+  --font-alice:   var(--font-alice), "Alice", serif;
+  --font-dm-sans: var(--font-dm-sans), "DM Sans", sans-serif;
+
+  /* Font Sizes — Figma type scale */
+  --text-h1:        52px;
+  --text-h3:        26px;
+  --text-h4:        22px;
+  --text-h5:        18px;
+  --text-h6:        15px;
+  --text-para-sm:   13px;
+  --text-para-md:   15px;
+  --text-para-lg:   17px;
+  --text-label-btn: 16px;
+  --text-display:   64px;
+
+  /* Line Heights */
+  --leading-h1:        49px;
+  --leading-h3:        32px;
+  --leading-h4:        28px;
+  --leading-h5:        20px;
+  --leading-h6:        18px;
+  --leading-para-sm:   20px;
+  --leading-para-md:   24px;
+  --leading-para-lg:   28px;
+  --leading-label-btn: 20px;
+  --leading-display:   96px;
+
+  /* Letter Spacings */
+  --tracking-h1:  -0.2rem;
+  --tracking-h3:  -0.05rem;
+  --tracking-h4:  -0.0375rem;
+  --tracking-h5:  -0.025rem;
+  --tracking-display: -0.125rem;
+
+  /* Border Radii */
+  --radius-pill:  9999px;
+  --radius-card:  24px;
+  --radius-card-lg: 32px;
+
+  /* Spacing shortcuts */
+  --spacing-screen-x: 16px;
+  --spacing-screen-x-lg: 32px;
+}
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+}
+
+/* ─── Mobile touch fixes ─────────────────────────────────────── */
+
+/* Remove grey tap flash on iOS/Android */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Eliminate 300ms tap delay on all interactive elements */
+button,
+a,
+[role="button"] {
+  touch-action: manipulation;
+  cursor: pointer;
+  /* Prevent text selection on tap */
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+/* ─── Animations ────────────────────────────────────────────── */
+
+/*
+  runner-hero: applied to the hero image.
+  - Horizontal oscillation ±6px (left/right stride motion)
+  - Vertical bob ±5px (footstep impact on both strides)
+  - Scale 1.05→1.07 (breathing pulse; base >1 keeps edges covered during translate)
+*/
+@keyframes runner-hero {
+  0%   { transform: translateX(0px)   translateY(0px)   scale(1.05); }
+  25%  { transform: translateX(6px)   translateY(-5px)  scale(1.06); }
+  50%  { transform: translateX(0px)   translateY(0px)   scale(1.07); }
+  75%  { transform: translateX(-6px)  translateY(-5px)  scale(1.06); }
+  100% { transform: translateX(0px)   translateY(0px)   scale(1.05); }
+}
+
+/*
+  runner-bg: applied to the dot pattern overlay.
+  - background-position shifts OPPOSITE to the hero (parallax)
+  - Uses backgroundPosition so the tiled pattern never gaps at edges
+  - Hero moves +6px right → dots shift -8px (appear to scroll left past runner)
+*/
+@keyframes runner-bg {
+  0%   { background-position: 0px 0px;  }
+  25%  { background-position: -8px 0px; }
+  50%  { background-position: 0px 0px;  }
+  75%  { background-position: 8px 0px;  }
+  100% { background-position: 0px 0px;  }
+}
+
+/* Slider thumb customization */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+  width: 100%;
+}
+
+input[type="range"]::-webkit-slider-track {
+  background: #fff3ef;
+  height: 4px;
+  border-radius: 9999px;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 9999px;
+  background: white;
+  border: 2px solid #f78b68;
+  box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -4px rgba(0,0,0,0.1);
+  margin-top: -14px;
+}
+
+input[type="range"]::-moz-range-track {
+  background: #fff3ef;
+  height: 4px;
+  border-radius: 9999px;
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 32px;
+  height: 32px;
+  border-radius: 9999px;
+  background: white;
+  border: 2px solid #f78b68;
+  box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -4px rgba(0,0,0,0.1);
+}
