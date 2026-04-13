@@ -3,10 +3,13 @@
 import { House, SneakerMove, Bank, UserCircle } from "@phosphor-icons/react";
 import { useTimeOfDayGreeting } from "@/hooks/useTimeOfDayGreeting";
 import type { DurationType } from "./Step4Duration";
+import ProfilePhotoPicker from "./ProfilePhotoPicker";
 
 interface Props {
   /** Shown under the time-based greeting on the home header. */
   greetingName: string;
+  profileImageUrl?: string | null;
+  onProfileImageChange: (url: string | null) => void;
   lockAmount: number;
   stepGoal: number;
   duration?: DurationType;
@@ -24,7 +27,15 @@ function durationDays(duration?: DurationType) {
   return duration;
 }
 
-export default function HomeWithGoal({ greetingName, lockAmount, stepGoal, duration, consequence }: Props) {
+export default function HomeWithGoal({
+  greetingName,
+  profileImageUrl,
+  onProfileImageChange,
+  lockAmount,
+  stepGoal,
+  duration,
+  consequence,
+}: Props) {
   const timeGreeting = useTimeOfDayGreeting();
   const daysLeft = durationDays(duration);
   const weeks = Math.max(1, Math.round(daysLeft / 7));
@@ -42,7 +53,7 @@ export default function HomeWithGoal({ greetingName, lockAmount, stepGoal, durat
             {greetingName}
           </h2>
         </div>
-        <div className="h-11 w-11 rounded-full border border-[#e6e9ef] bg-white" aria-hidden="true" />
+        <ProfilePhotoPicker imageUrl={profileImageUrl} onChange={onProfileImageChange} />
       </div>
 
       <div className="min-h-0 flex-1 space-y-4 overflow-y-auto overscroll-y-contain px-4 pb-4">

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Step1Welcome from "./Step1Welcome";
 import Step2PreferredName from "./Step2PreferredName";
 import Step2HowItWorks from "./Step2HowItWorks";
@@ -20,9 +20,12 @@ import type { MotivationType } from "./Step3Motivation";
 import type { DurationType } from "./Step4Duration";
 
 const imgPaywallHero = "/paywall-hero.webp";
+const PROFILE_PHOTO_STORAGE_KEY = "steppa-profile-photo";
 
 interface OnboardingState {
   preferredName?: string;
+  /** Data URL (upload) or preset URL — shown on home avatar. */
+  profileImageUrl?: string | null;
   motivation?: MotivationType;
   lockAmount?: number;
   stepGoal?: number;
@@ -36,6 +39,26 @@ export default function OnboardingFlow() {
   const [hasActiveGoal, setHasActiveGoal] = useState(false);
   const [goalProgressRun, setGoalProgressRun] = useState(0);
   const [state, setState] = useState<OnboardingState>({});
+
+  useEffect(() => {
+    try {
+      const raw = localStorage.getItem(PROFILE_PHOTO_STORAGE_KEY);
+      if (raw)
+        setState((s) => ({ ...s, profileImageUrl: raw }));
+    } catch {
+      /* ignore */
+    }
+  }, []);
+
+  const setProfileImageUrl = (url: string | null) => {
+    setState((s) => ({ ...s, profileImageUrl: url }));
+    try {
+      if (url) localStorage.setItem(PROFILE_PHOTO_STORAGE_KEY, url);
+      else localStorage.removeItem(PROFILE_PHOTO_STORAGE_KEY);
+    } catch {
+      /* ignore */
+    }
+  };
 
   /** Intro + paywall: steps 1–6 (welcome → name → how → motivation → permissions → paywall). */
   const next = () => setStep((s) => Math.min(s + 1, 6));
@@ -99,6 +122,7 @@ export default function OnboardingFlow() {
             setGoalStep(1);
             setState((prev) => ({
               preferredName: prev.preferredName,
+              profileImageUrl: prev.profileImageUrl,
             }));
             setStep(7);
           }}
@@ -113,6 +137,8 @@ export default function OnboardingFlow() {
         hasActiveGoal ? (
           <HomeWithGoal
             greetingName={greetingName}
+            profileImageUrl={state.profileImageUrl}
+            onProfileImageChange={setProfileImageUrl}
             lockAmount={state.lockAmount ?? 10000}
             stepGoal={state.stepGoal ?? 8000}
             duration={state.duration}
@@ -121,6 +147,8 @@ export default function OnboardingFlow() {
         ) : (
           <EmptyStateHome
             greetingName={greetingName}
+            profileImageUrl={state.profileImageUrl}
+            onProfileImageChange={setProfileImageUrl}
             onSetGoals={() => {
               setState((s) => ({
                 ...s,

@@ -3,14 +3,22 @@
 import { VaultIcon } from "./icons";
 import { House, SneakerMove, Bank, UserCircle, Info } from "@phosphor-icons/react";
 import { useTimeOfDayGreeting } from "@/hooks/useTimeOfDayGreeting";
+import ProfilePhotoPicker from "./ProfilePhotoPicker";
 
 interface Props {
   /** Shown under the time-based greeting on the home header. */
   greetingName: string;
+  profileImageUrl?: string | null;
+  onProfileImageChange: (url: string | null) => void;
   onSetGoals: () => void;
 }
 
-export default function EmptyStateHome({ greetingName, onSetGoals }: Props) {
+export default function EmptyStateHome({
+  greetingName,
+  profileImageUrl,
+  onProfileImageChange,
+  onSetGoals,
+}: Props) {
   const timeGreeting = useTimeOfDayGreeting();
 
   return (
@@ -24,7 +32,7 @@ export default function EmptyStateHome({ greetingName, onSetGoals }: Props) {
             {greetingName}
           </h2>
         </div>
-        <div className="h-11 w-11 rounded-full border border-[#e6e9ef] bg-white" aria-hidden="true" />
+        <ProfilePhotoPicker imageUrl={profileImageUrl} onChange={onProfileImageChange} />
       </div>
 
       <div className="min-h-0 flex-1 space-y-4 overflow-y-auto overscroll-y-contain px-4 pb-4">
