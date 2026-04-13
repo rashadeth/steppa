@@ -3,6 +3,7 @@
 import { useState } from "react";
 import ScreenHeader from "./ScreenHeader";
 import CTAButton from "./CTAButton";
+import ScreenWithStickyFooter from "./ScreenWithStickyFooter";
 
 const PRESETS = [5000, 8000, 10000];
 const MIN = 2000;
@@ -44,9 +45,8 @@ export default function Step4StepGoal({ onNext, onBack, defaultValue }: Props) {
   const pct = steps !== null ? ((steps - MIN) / (MAX - MIN)) * 100 : 0;
 
   return (
-    <div className="flex flex-col h-full bg-white">
-      {/* Header */}
-      <div className="pb-6 flex flex-col gap-3 shrink-0">
+    <ScreenWithStickyFooter footer={<CTAButton onClick={() => steps !== null && onNext(steps)} disabled={steps === null} />}>
+      <div className="pb-6 flex flex-col gap-3">
         <ScreenHeader step={2} total={5} onBack={onBack} />
         <div className="px-4 flex flex-col gap-3">
           <h2 className="font-[family-name:var(--font-manrope)] font-semibold text-[26px] leading-8 tracking-[-0.05rem] text-[#5e160a]">
@@ -58,8 +58,7 @@ export default function Step4StepGoal({ onNext, onBack, defaultValue }: Props) {
         </div>
       </div>
 
-      {/* Interaction area */}
-      <div className="flex-1 flex flex-col items-center justify-center px-4 gap-4">
+      <div className="flex flex-col items-center px-4 gap-4 py-6">
         {/* Step display */}
         {customMode ? (
           <div className="flex flex-col items-center gap-1 pb-6">
@@ -139,11 +138,6 @@ export default function Step4StepGoal({ onNext, onBack, defaultValue }: Props) {
           </button>
         </div>
       </div>
-
-      {/* Footer CTA */}
-      <div className="px-4 pb-12 pt-6 shrink-0">
-        <CTAButton onClick={() => steps !== null && onNext(steps)} disabled={steps === null} />
-      </div>
-    </div>
+    </ScreenWithStickyFooter>
   );
 }

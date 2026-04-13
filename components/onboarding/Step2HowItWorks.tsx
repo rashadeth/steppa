@@ -88,17 +88,16 @@ export default function Step2HowItWorks({ onNext, onBack }: Props) {
 
   return (
     <div
-      className="flex flex-col h-full bg-white"
+      className="flex h-full min-h-0 flex-col bg-white"
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
     >
-      {/* ── Progress bar ──────────────────────────────────────────────── */}
-      <div className="px-4 pt-10 shrink-0">
+      <div className="shrink-0 px-4 pt-10">
         <ProgressBar step={2} total={4} />
       </div>
 
-      {/* ── Slide content ─────────────────────────────────────────────── */}
-      <div className="flex-1 flex flex-col items-center justify-center px-6 min-h-0">
+      <div className="min-h-0 flex-1 overflow-y-auto overscroll-y-contain">
+        <div className="relative flex min-h-0 flex-col items-center justify-center px-6 py-8">
 
         {/* Lottie animations — all preloaded, crossfade via opacity */}
         <div className="relative w-full max-w-[280px] h-[250px] shrink-0">
@@ -139,10 +138,9 @@ export default function Step2HowItWorks({ onNext, onBack }: Props) {
             </div>
           ))}
         </div>
-      </div>
+        </div>
 
-      {/* ── Dot indicators ────────────────────────────────────────────── */}
-      <div className="flex items-center justify-center gap-2 pb-8 shrink-0">
+        <div className="flex items-center justify-center gap-2 pb-8">
         {SLIDES.map((_, i) => (
           <button
             key={i}
@@ -157,9 +155,9 @@ export default function Step2HowItWorks({ onNext, onBack }: Props) {
           />
         ))}
       </div>
+      </div>
 
-      {/* ── Button row ────────────────────────────────────────────────── */}
-      <div className="flex items-center gap-3 px-4 pb-10 shrink-0">
+      <div className="sticky bottom-0 z-20 flex shrink-0 items-center gap-3 border-t border-transparent bg-white px-4 pt-4 pb-[max(1.25rem,calc(env(safe-area-inset-bottom,0px)+1.25rem))]">
         {/* Skip */}
         <button
           onClick={onBack}

@@ -54,22 +54,22 @@ export default function Step4Duration({ onNext, onBack, defaultValue }: Props) {
   }
 
   return (
-    <div className="relative flex flex-col h-full bg-white overflow-hidden">
-      {/* Header */}
-      <div className="flex flex-col gap-4 pb-6 shrink-0">
-        <ScreenHeader step={3} total={5} onBack={onBack} />
-        <div className="px-4 flex flex-col gap-3">
-          <h2 className="font-[family-name:var(--font-manrope)] font-bold text-[28px] leading-9 text-[#111827] text-center">
-            How long is your<br />challenge?
-          </h2>
-          <p className="font-[family-name:var(--font-manrope)] text-[14px] leading-5 text-[#6b7280] text-center">
-            Choose the duration for your step goal commitment
-          </p>
-        </div>
-      </div>
+    <div className="relative flex h-full min-h-0 flex-col overflow-hidden bg-white">
+      <div className="flex min-h-0 flex-1 flex-col">
+        <div className="min-h-0 flex-1 overflow-y-auto overscroll-y-contain">
+          <div className="flex flex-col gap-4 pb-6">
+            <ScreenHeader step={3} total={5} onBack={onBack} />
+            <div className="px-4 flex flex-col gap-3">
+              <h2 className="font-[family-name:var(--font-manrope)] font-bold text-[28px] leading-9 text-[#111827] text-center">
+                How long is your<br />challenge?
+              </h2>
+              <p className="font-[family-name:var(--font-manrope)] text-[14px] leading-5 text-[#6b7280] text-center">
+                Choose the duration for your step goal commitment
+              </p>
+            </div>
+          </div>
 
-      {/* Options */}
-      <div className="flex-1 flex flex-col gap-4 px-4 overflow-y-auto">
+          <div className="flex flex-col gap-4 px-4 pb-6">
         {options.map((opt) => {
           const active =
             opt.id === "custom"
@@ -114,14 +114,15 @@ export default function Step4Duration({ onNext, onBack, defaultValue }: Props) {
             </button>
           );
         })}
-      </div>
+          </div>
+        </div>
 
-      {/* Footer */}
-      <div className="px-4 pb-12 pt-6 shrink-0">
-        <CTAButton
-          onClick={() => selected !== null && onNext(selected)}
-          disabled={selected === null}
-        />
+        <div className="sticky bottom-0 z-10 shrink-0 border-t border-transparent bg-white px-4 pt-4 pb-[max(1.25rem,calc(env(safe-area-inset-bottom,0px)+1.25rem))]">
+          <CTAButton
+            onClick={() => selected !== null && onNext(selected)}
+            disabled={selected === null}
+          />
+        </div>
       </div>
 
       {isCustomPickerOpen && (

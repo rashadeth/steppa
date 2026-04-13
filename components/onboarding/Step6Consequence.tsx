@@ -3,6 +3,7 @@
 import { useState } from "react";
 import ScreenHeader from "./ScreenHeader";
 import CTAButton from "./CTAButton";
+import ScreenWithStickyFooter from "./ScreenWithStickyFooter";
 import { ClockLockIcon, SendMoneyIcon } from "./icons";
 
 type ConsequenceType = "extend" | "penalty";
@@ -37,9 +38,8 @@ export default function Step6Consequence({ onNext, onBack }: Props) {
   const [selected, setSelected] = useState<ConsequenceType | null>(null);
 
   return (
-    <div className="flex flex-col h-full bg-white">
-      {/* Header */}
-      <div className="pb-6 flex flex-col gap-4 shrink-0">
+    <ScreenWithStickyFooter footer={<CTAButton onClick={() => selected && onNext(selected)} disabled={selected === null} />}>
+      <div className="pb-6 flex flex-col gap-4">
         <ScreenHeader step={4} total={5} onBack={onBack} />
         <div className="px-4 flex flex-col gap-4">
           <h2 className="font-[family-name:var(--font-manrope)] font-semibold text-[26px] leading-8 tracking-[-0.05rem] text-[#5e160a]">
@@ -51,8 +51,7 @@ export default function Step6Consequence({ onNext, onBack }: Props) {
         </div>
       </div>
 
-      {/* Options */}
-      <div className="flex-1 flex flex-col gap-4 px-8 overflow-y-auto">
+      <div className="flex flex-col gap-4 px-8 pb-8">
         {options.map((opt) => {
           const isSelected = selected === opt.id;
           return (
@@ -94,11 +93,6 @@ export default function Step6Consequence({ onNext, onBack }: Props) {
           );
         })}
       </div>
-
-      {/* Footer CTA */}
-      <div className="px-4 pb-12 pt-6 shrink-0">
-        <CTAButton onClick={() => selected && onNext(selected)} disabled={selected === null} />
-      </div>
-    </div>
+    </ScreenWithStickyFooter>
   );
 }

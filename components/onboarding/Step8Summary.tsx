@@ -2,6 +2,7 @@
 
 import ScreenHeader from "./ScreenHeader";
 import CTAButton from "./CTAButton";
+import ScreenWithStickyFooter from "./ScreenWithStickyFooter";
 import { TargetIcon, CalendarIcon, VaultIcon, ShieldTickIcon } from "./icons";
 
 type DurationType = 7 | 14 | 21 | number | "custom";
@@ -56,9 +57,8 @@ export default function Step8Summary({ stepGoal, lockAmount, duration, onStart, 
   const releaseDate = getReleaseDate(duration);
 
   return (
-    <div className="flex flex-col h-full bg-white">
-      {/* Header */}
-      <div className="pb-6 flex flex-col gap-3 shrink-0">
+    <ScreenWithStickyFooter footer={<CTAButton onClick={onStart} label="Start my challenge" />}>
+      <div className="pb-6 flex flex-col gap-3">
         <ScreenHeader step={5} total={5} onBack={onBack} />
         <div className="px-4 flex flex-col gap-3">
           <h2 className="font-[family-name:var(--font-manrope)] font-semibold text-[26px] leading-8 tracking-[-0.05rem] text-[#5e160a]">
@@ -70,8 +70,7 @@ export default function Step8Summary({ stepGoal, lockAmount, duration, onStart, 
         </div>
       </div>
 
-      {/* Summary Card */}
-      <div className="flex-1 px-8 overflow-y-auto">
+      <div className="px-8 pb-8">
         <div className="bg-white border border-[#e0e0e8] rounded-[20px] shadow-[0px_6px_18px_0px_rgba(11,18,32,0.06)] p-6 flex flex-col gap-6">
           <SummaryRow
             Icon={TargetIcon}
@@ -101,11 +100,6 @@ export default function Step8Summary({ stepGoal, lockAmount, duration, onStart, 
           </div>
         </div>
       </div>
-
-      {/* Footer CTA */}
-      <div className="px-4 pb-12 pt-6 shrink-0">
-        <CTAButton onClick={onStart} label="Start my challenge" />
-      </div>
-    </div>
+    </ScreenWithStickyFooter>
   );
 }

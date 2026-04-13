@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Manrope, Alice, DM_Sans } from "next/font/google";
 import "./globals.css";
 
@@ -28,6 +28,12 @@ export const metadata: Metadata = {
   description: "Lock your money. Unlock it with effort. Complete daily step goals to earn your money back.",
 };
 
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -38,7 +44,7 @@ export default function RootLayout({
       lang="en"
       className={`${manrope.variable} ${alice.variable} ${dmSans.variable} h-full antialiased`}
     >
-      <body className="min-h-full bg-gray-100">{children}</body>
+      <body className="min-h-full min-h-dvh bg-gray-100">{children}</body>
     </html>
   );
 }

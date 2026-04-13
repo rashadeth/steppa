@@ -43,7 +43,7 @@ export default function Step1Welcome({ onNext }: Props) {
   }, []);
 
   return (
-    <div className="relative w-full h-full bg-[#16141a] overflow-hidden">
+    <div className="relative flex h-full min-h-0 w-full flex-col overflow-hidden bg-[#16141a]">
       {/* ── Ticker styles ──────────────────────────────────────────────── */}
       <style>{`
         .word-ticker {
@@ -126,7 +126,7 @@ export default function Step1Welcome({ onNext }: Props) {
       </div>
 
       {/* CTA footer */}
-      <div className="absolute bottom-0 left-0 right-0 z-10 backdrop-blur-[2px] bg-[rgba(23,20,20,0.02)] px-4 pb-10 pt-6">
+      <div className="absolute bottom-0 left-0 right-0 z-10 backdrop-blur-[2px] bg-[rgba(23,20,20,0.02)] px-4 pt-6 pb-[max(2.5rem,calc(env(safe-area-inset-bottom,0px)+1.5rem))]">
         <button
           onClick={onNext}
           className="w-full h-[52px] flex items-center justify-center rounded-full bg-[#F16746] border border-[#ffb89e] shadow-[0px_5.566px_13.915px_0px_rgba(0,0,0,0.25)] font-[family-name:var(--font-manrope)] font-semibold text-[16px] leading-5 text-white active:opacity-80"

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import ScreenHeader from "./ScreenHeader";
 import CTAButton from "./CTAButton";
+import ScreenWithStickyFooter from "./ScreenWithStickyFooter";
 
 const PRESETS = [5000, 10000, 20000];
 const AVAILABLE_BALANCE = 30000;
@@ -48,9 +49,22 @@ export default function Step5MoneyLock({ onNext, onBack, defaultValue }: Props) 
   }
 
   return (
-    <div className="flex flex-col h-full bg-white">
-      {/* Header */}
-      <div className="pb-6 flex flex-col gap-4 shrink-0">
+    <ScreenWithStickyFooter
+      footer={
+        <div className="flex flex-col gap-3">
+          {exceedsBalance && (
+            <button
+              onClick={() => alert(`Deposit flow: add ₦${shortfall.toLocaleString()} to your vault.`)}
+              className="w-full h-[52px] flex items-center justify-center rounded-full border border-[#d4481f] bg-white font-[family-name:var(--font-manrope)] font-semibold text-[16px] leading-5 text-[#d4481f]"
+            >
+              Deposit ₦{shortfall.toLocaleString()}
+            </button>
+          )}
+          <CTAButton onClick={() => amount !== null && onNext(amount)} disabled={amount === null || exceedsBalance} />
+        </div>
+      }
+    >
+      <div className="pb-6 flex flex-col gap-4">
         <ScreenHeader step={1} total={5} onBack={onBack} />
         <div className="px-4 flex flex-col gap-4">
           <h2 className="font-[family-name:var(--font-manrope)] font-semibold text-[26px] leading-8 tracking-[-0.05rem] text-[#5e160a]">
@@ -62,9 +76,7 @@ export default function Step5MoneyLock({ onNext, onBack, defaultValue }: Props) 
         </div>
       </div>
 
-      {/* Amount input area */}
-      <div className="flex-1 flex flex-col items-center pt-10 px-8 gap-6">
-        {/* Balance + amount frame */}
+      <div className="flex flex-col items-center px-8 pt-6 pb-8 gap-6">
         <div className={`w-full rounded-[24px] border px-5 py-6 ${exceedsBalance ? "border-[#d4481f] bg-[#fef2f2]" : "border-[#e6e9ef] bg-[#fafafc]"}`}>
           <p className="text-center font-[family-name:var(--font-manrope)] text-[13px] leading-5 text-[#9898ac]">
             Available balance: ₦{AVAILABLE_BALANCE.toLocaleString()}
@@ -98,7 +110,6 @@ export default function Step5MoneyLock({ onNext, onBack, defaultValue }: Props) 
           )}
         </div>
 
-        {/* Quick select buttons */}
         <div className="grid grid-cols-3 gap-3 w-full">
           {PRESETS.map((p) => {
             const isActive = amount !== null && amount === p && !editing;
@@ -118,25 +129,10 @@ export default function Step5MoneyLock({ onNext, onBack, defaultValue }: Props) 
           })}
         </div>
 
-        {/* Security note */}
         <p className="font-[family-name:var(--font-manrope)] text-[15px] leading-6 text-[#444459] text-center max-w-[240px]">
           Funds are held securely in a smart-lock vault until verification.
         </p>
-
       </div>
-
-      {/* Footer CTA */}
-      <div className="px-4 pb-10 pt-4 shrink-0 flex flex-col gap-3">
-        {exceedsBalance && (
-          <button
-            onClick={() => alert(`Deposit flow: add ₦${shortfall.toLocaleString()} to your vault.`)}
-            className="w-full h-[52px] flex items-center justify-center rounded-full border border-[#d4481f] bg-white font-[family-name:var(--font-manrope)] font-semibold text-[16px] leading-5 text-[#d4481f]"
-          >
-            Deposit ₦{shortfall.toLocaleString()}
-          </button>
-        )}
-        <CTAButton onClick={() => amount !== null && onNext(amount)} disabled={amount === null || exceedsBalance} />
-      </div>
-    </div>
+    </ScreenWithStickyFooter>
   );
 }

@@ -9,9 +9,8 @@ interface Props {
 
 export default function EmptyStateHome({ onSetGoals }: Props) {
   return (
-    <div className="flex h-full flex-col bg-white">
-      {/* Header */}
-      <div className="flex items-center justify-between px-4 pt-[74px] pb-6">
+    <div className="flex h-full min-h-0 flex-col bg-white">
+      <div className="flex shrink-0 items-center justify-between px-4 pt-[74px] pb-6">
         <div className="flex flex-col gap-[2px]">
           <p className="font-[family-name:var(--font-manrope)] font-medium text-[14px] leading-[14px] tracking-[-0.7px] text-[#444459]">
             Good morning 👋
@@ -23,7 +22,7 @@ export default function EmptyStateHome({ onSetGoals }: Props) {
         <div className="h-11 w-11 rounded-full border border-[#e6e9ef] bg-white" aria-hidden="true" />
       </div>
 
-      <div className="flex-1 space-y-4 px-4">
+      <div className="min-h-0 flex-1 space-y-4 overflow-y-auto overscroll-y-contain px-4 pb-4">
         {/* Steps empty card */}
         <div className="rounded-[32px] border border-[#e6e9ef] bg-white px-5 pt-[25px] pb-4">
           <div className="mb-3 flex items-center justify-between">
@@ -75,8 +74,7 @@ export default function EmptyStateHome({ onSetGoals }: Props) {
         </div>
       </div>
 
-      {/* Bottom tab */}
-      <div className="mt-3 border-t border-[#e6e9ef] px-4 pt-3 pb-7">
+      <div className="sticky bottom-0 z-10 mt-3 shrink-0 border-t border-[#e6e9ef] bg-white px-4 pt-3 pb-[max(1rem,calc(env(safe-area-inset-bottom,0px)+0.75rem))]">
         <div className="flex items-center justify-center gap-[55px]">
           <div className="flex flex-col items-center gap-2">
             <House size={20} weight="fill" color="#f16746" />

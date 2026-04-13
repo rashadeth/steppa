@@ -3,6 +3,7 @@
 import { useState } from "react";
 import ScreenHeader from "./ScreenHeader";
 import CTAButton from "./CTAButton";
+import ScreenWithStickyFooter from "./ScreenWithStickyFooter";
 import { WalkingIcon, DumbbellIcon, SavingIcon, RadioEmpty, RadioFilled } from "./icons";
 
 type GoalType = "walking" | "fitness" | "saving";
@@ -24,8 +25,14 @@ export default function Step2GoalSelection({ onNext, onBack, defaultValue }: Pro
   const [selected, setSelected] = useState<GoalType | null>(defaultValue ?? null);
 
   return (
-    <div className="flex flex-col h-full bg-white">
-      {/* ── Header ── */}
+    <ScreenWithStickyFooter
+      footer={
+        <CTAButton
+          onClick={() => selected && onNext(selected)}
+          disabled={selected === null}
+        />
+      }
+    >
       <div className="flex flex-col gap-4 pb-6">
         <ScreenHeader step={2} total={10} onBack={onBack} />
         <div className="px-4 flex flex-col gap-4">
@@ -38,8 +45,7 @@ export default function Step2GoalSelection({ onNext, onBack, defaultValue }: Pro
         </div>
       </div>
 
-      {/* ── Options ── */}
-      <div className="flex-1 px-4 overflow-y-auto">
+      <div className="px-4 pb-6">
         <div className="flex flex-col gap-6 py-4">
           {options.map((opt) => {
             const active = selected === opt.id;
@@ -82,14 +88,6 @@ export default function Step2GoalSelection({ onNext, onBack, defaultValue }: Pro
           })}
         </div>
       </div>
-
-      {/* ── Footer ── */}
-      <div className="px-4 pb-12 pt-4 bg-white">
-        <CTAButton
-          onClick={() => selected && onNext(selected)}
-          disabled={selected === null}
-        />
-      </div>
-    </div>
+    </ScreenWithStickyFooter>
   );
 }

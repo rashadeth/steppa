@@ -37,7 +37,7 @@ export default function OnboardingFlow() {
   const back = () => setStep((s) => Math.max(s - 1, 1));
 
   return (
-    <div className="w-full h-full">
+    <div className="flex h-full min-h-0 w-full flex-col">
       {/* Preload the paywall hero early to avoid visible image pop-in on step transition. */}
       <img src={imgPaywallHero} alt="" aria-hidden="true" className="hidden" loading="eager" />
 

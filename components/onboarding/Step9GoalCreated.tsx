@@ -87,7 +87,7 @@ export default function Step9GoalCreated({ stepGoal, lockAmount, duration, onNex
   useEffect(() => { setMounted(true); }, []);
 
   return (
-    <div className="flex flex-col h-full relative overflow-hidden bg-[#5e160a]">
+    <div className="relative flex h-full min-h-0 flex-col overflow-hidden bg-[#5e160a]">
 
       {/* Keyframes */}
       <style>{`
@@ -158,11 +158,9 @@ export default function Step9GoalCreated({ stepGoal, lockAmount, duration, onNex
         </div>
       )}
 
-      {/* Content */}
-      <div className="relative z-20 flex flex-col h-full">
+      <div className="relative z-20 flex h-full min-h-0 flex-col">
 
-        {/* Status bar */}
-        <div className="flex items-center justify-between px-5 py-[14px] text-white shrink-0">
+        <div className="flex shrink-0 items-center justify-between px-5 py-[14px] text-white">
           <span className="font-[family-name:var(--font-manrope)] font-semibold text-[15px] leading-5">
             9:41
           </span>
@@ -171,8 +169,7 @@ export default function Step9GoalCreated({ stepGoal, lockAmount, duration, onNex
           </span>
         </div>
 
-        {/* Center content */}
-        <div className="flex-1 flex flex-col items-center justify-center gap-6 px-7 overflow-y-auto">
+        <div className="flex min-h-0 flex-1 flex-col items-center justify-center gap-6 overflow-y-auto overscroll-y-contain px-7 py-4">
 
           <div className="hero-pop w-[170px] h-[120px] flex items-center justify-center shrink-0">
             <img
@@ -210,8 +207,7 @@ export default function Step9GoalCreated({ stepGoal, lockAmount, duration, onNex
           </div>
         </div>
 
-        {/* CTA */}
-        <div className="su5 px-6 pb-10 pt-4 shrink-0">
+        <div className="su5 sticky bottom-0 z-20 shrink-0 border-t border-transparent bg-[#5e160a] px-6 pt-4 pb-[max(1.25rem,calc(env(safe-area-inset-bottom,0px)+1.25rem))]">
           <button
             onClick={onNext}
             className="w-full h-[54px] flex items-center justify-center gap-2 rounded-full bg-[#f16746] shadow-[0px_4px_12px_0px_rgba(242,105,71,0.28)] font-[family-name:var(--font-manrope)] font-extrabold text-[17px] text-white active:scale-[0.97] transition-transform cursor-pointer"
