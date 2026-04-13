@@ -34,7 +34,7 @@ export default function Step10Paywall({ onUpgrade, onClose }: Props) {
       <button
         onClick={onClose}
         className="absolute top-12 right-6 w-10 h-10 rounded-full backdrop-blur-[6px] bg-[rgba(255,255,255,0.8)] border border-[#e6e9ef] flex items-center justify-center z-10"
-        aria-label="Close"
+        aria-label="Cancel"
       >
         <CloseIcon size={20} className="text-[#444459]" />
       </button>

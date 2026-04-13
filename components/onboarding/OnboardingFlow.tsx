@@ -45,7 +45,12 @@ export default function OnboardingFlow() {
       {step === 1 && <Step1Welcome onNext={next} />}
 
       {/* 2 — How It Works */}
-      {step === 2 && <Step2HowItWorks onNext={next} onBack={back} />}
+      {step === 2 && (
+        <Step2HowItWorks
+          onNext={next}
+          onSkip={() => setStep(5)}
+        />
+      )}
 
       {/* 3 — Motivation */}
       {step === 3 && (
@@ -71,7 +76,12 @@ export default function OnboardingFlow() {
       {/* 5 — Subscription Paywall */}
       {step === 5 && (
         <Step10Paywall
-          onClose={() => setStep(6)}
+          onClose={() => {
+            setHasActiveGoal(false);
+            setGoalStep(1);
+            setState({});
+            setStep(6);
+          }}
           onUpgrade={() => {
             // TODO: wire purchase flow and then route to app.
             alert("Pro upgrade started! 🚀");

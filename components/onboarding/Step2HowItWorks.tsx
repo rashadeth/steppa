@@ -30,12 +30,13 @@ const AUTO_ADVANCE_MS = 4000;
 
 interface Props {
   onNext: () => void;
-  onBack: () => void;
+  /** Skip the rest of onboarding and open the subscription screen. */
+  onSkip: () => void;
 }
 
 // ─── Component ─────────────────────────────────────────────────────────────
 
-export default function Step2HowItWorks({ onNext, onBack }: Props) {
+export default function Step2HowItWorks({ onNext, onSkip }: Props) {
   const [current, setCurrent]   = useState(0);
   const timerRef                = useRef<ReturnType<typeof setTimeout> | null>(null);
   const touchStartX             = useRef<number | null>(null);
@@ -160,7 +161,8 @@ export default function Step2HowItWorks({ onNext, onBack }: Props) {
       <div className="sticky bottom-0 z-20 flex shrink-0 items-center gap-3 border-t border-transparent bg-white px-4 pt-4 pb-[max(1.25rem,calc(env(safe-area-inset-bottom,0px)+1.25rem))]">
         {/* Skip */}
         <button
-          onClick={onBack}
+          type="button"
+          onClick={onSkip}
           className="h-[52px] px-6 flex items-center justify-center font-[family-name:var(--font-manrope)] font-semibold text-[16px] text-[#5e160a]"
           style={{ touchAction: "manipulation" }}
         >
