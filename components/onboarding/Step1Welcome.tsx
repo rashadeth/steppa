@@ -12,11 +12,14 @@ const STEP2_LOTTIES = [
 ];
 
 const FLIP_WORDS = ["discipline", "patience", "hardwork"];
-const HOLD_MS    = 2500;
-const FLIP_MS    = 500;
+const HOLD_MS = 2500;
+const FLIP_MS = 500;
 
 // Line-height of the h1 in px — must match leading-[49px]
 const LINE_H = 49;
+
+const FOOTER_SAFE =
+  "pb-[max(1.25rem,calc(env(safe-area-inset-bottom,0px)+1.25rem))]";
 
 interface Props {
   onNext: () => void;
@@ -25,7 +28,6 @@ interface Props {
 export default function Step1Welcome({ onNext }: Props) {
   const [wordIndex, setWordIndex] = useState(0);
 
-  // Advance word every HOLD_MS; CSS transition handles the 500ms flip
   useEffect(() => {
     const timer = setTimeout(() => {
       setWordIndex((i) => (i + 1) % FLIP_WORDS.length);
@@ -33,18 +35,14 @@ export default function Step1Welcome({ onNext }: Props) {
     return () => clearTimeout(timer);
   }, [wordIndex]);
 
-  // Warm Step 2 animation assets so the first slide appears faster after tap.
   useEffect(() => {
     STEP2_LOTTIES.forEach((url) => {
-      void fetch(url).catch(() => {
-        // Ignore preload failures; Step 2 still loads assets normally.
-      });
+      void fetch(url).catch(() => {});
     });
   }, []);
 
   return (
     <div className="relative flex h-full min-h-0 w-full flex-col overflow-hidden bg-[#16141a]">
-      {/* ── Ticker styles ──────────────────────────────────────────────── */}
       <style>{`
         .word-ticker {
           display: inline-block;
@@ -66,19 +64,15 @@ export default function Step1Welcome({ onNext }: Props) {
         }
       `}</style>
 
-      {/* Hero image */}
+      {/* Full-bleed background (behind UI) */}
       <img
         src={imgHero}
         alt="Person running with credit card"
-        className="absolute inset-0 w-full h-full object-cover object-top"
+        className="pointer-events-none absolute inset-0 z-0 h-full w-full object-cover object-top"
       />
-
-      {/* Orange tint overlay */}
-      <div className="absolute inset-0 bg-[rgba(239,93,62,0.25)] pointer-events-none" />
-
-      {/* Dot pattern overlay */}
+      <div className="pointer-events-none absolute inset-0 z-0 bg-[rgba(239,93,62,0.25)]" />
       <div
-        className="absolute inset-0 pointer-events-none"
+        className="pointer-events-none absolute inset-0 z-0"
         style={{
           backgroundImage: `url('${imgDots}')`,
           backgroundSize: "2.54px 2.54px",
@@ -86,54 +80,57 @@ export default function Step1Welcome({ onNext }: Props) {
         }}
       />
 
-      {/* Progress bar */}
-      <div className="absolute top-0 left-0 right-0 px-4 pt-10 z-10">
-        <ProgressBar step={1} total={4} light />
-      </div>
+      {/* Foreground: progress + scroll + sticky CTA */}
+      <div className="relative z-10 flex h-full min-h-0 flex-col">
+        <div className="shrink-0 px-4 pt-10">
+          <ProgressBar step={1} total={4} light />
+        </div>
 
-      {/* Headline + subtext */}
-      <div
-        className="absolute left-0 right-0 z-10 px-4 backdrop-blur-[0.75px] bg-[rgba(0,0,0,0.02)]"
-        style={{ top: "475px" }}
-      >
-        <div className="pt-[7px]">
-          <h1 className="font-[family-name:var(--font-alice)] text-[52px] leading-[49px] tracking-[-3.2px] text-white">
-            Turn{" "}
-            <span className="word-ticker">
-              <span
-                className="word-ticker-inner"
-                style={{ transform: `translateY(-${wordIndex * LINE_H}px)` }}
-              >
-                {FLIP_WORDS.map((word) => (
-                  <span key={word} className="word-ticker-item">
-                    {word}
+        <div className="min-h-0 flex-1 overflow-y-auto overscroll-y-contain">
+          <div className="flex min-h-full flex-col justify-end px-4 pb-6">
+            <div className="backdrop-blur-[0.75px] bg-[rgba(0,0,0,0.02)]">
+              <div className="pt-[7px]">
+                <h1 className="font-[family-name:var(--font-alice)] text-[52px] leading-[49px] tracking-[-3.2px] text-white">
+                  Turn{" "}
+                  <span className="word-ticker">
+                    <span
+                      className="word-ticker-inner"
+                      style={{ transform: `translateY(-${wordIndex * LINE_H}px)` }}
+                    >
+                      {FLIP_WORDS.map((word) => (
+                        <span key={word} className="word-ticker-item">
+                          {word}
+                        </span>
+                      ))}
+                    </span>
                   </span>
-                ))}
-              </span>
-            </span>
-            <br />
-            into money
-          </h1>
-          <div className="h-[90px] flex items-start pt-2">
-            <p
-              className="font-[family-name:var(--font-manrope)] font-medium text-[17px] leading-7 text-white"
-              style={{ textShadow: "0 2px 20px #505050" }}
-            >
-              Lock your money. Unlock it with effort.
-            </p>
+                  <br />
+                  into money
+                </h1>
+                <div className="flex h-[90px] items-start pt-2">
+                  <p
+                    className="font-[family-name:var(--font-manrope)] font-medium text-[17px] leading-7 text-white"
+                    style={{ textShadow: "0 2px 20px #505050" }}
+                  >
+                    Lock your money. Unlock it with effort.
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
 
-      {/* CTA footer */}
-      <div className="absolute bottom-0 left-0 right-0 z-10 backdrop-blur-[2px] bg-[rgba(23,20,20,0.02)] px-4 pt-6 pb-[max(2.5rem,calc(env(safe-area-inset-bottom,0px)+1.5rem))]">
-        <button
-          onClick={onNext}
-          className="w-full h-[52px] flex items-center justify-center rounded-full bg-[#F16746] border border-[#ffb89e] shadow-[0px_5.566px_13.915px_0px_rgba(0,0,0,0.25)] font-[family-name:var(--font-manrope)] font-semibold text-[16px] leading-5 text-white active:opacity-80"
-          style={{ touchAction: "manipulation" }}
+        <div
+          className={`sticky bottom-0 z-20 shrink-0 border-t border-transparent bg-[rgba(12,10,14,0.72)] px-4 pt-6 backdrop-blur-md ${FOOTER_SAFE}`}
         >
-          Continue progress
-        </button>
+          <button
+            onClick={onNext}
+            className="flex h-[52px] w-full items-center justify-center rounded-full border border-[#ffb89e] bg-[#F16746] font-[family-name:var(--font-manrope)] font-semibold text-[16px] leading-5 text-white shadow-[0px_5.566px_13.915px_0px_rgba(0,0,0,0.25)] active:opacity-80"
+            style={{ touchAction: "manipulation" }}
+          >
+            Continue progress
+          </button>
+        </div>
       </div>
     </div>
   );
