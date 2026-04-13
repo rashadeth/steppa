@@ -10,7 +10,6 @@ type ConsequenceType = "extend" | "penalty";
 interface Props {
   onNext: (consequence: ConsequenceType) => void;
   onBack: () => void;
-  defaultValue?: ConsequenceType;
 }
 
 const options: {
@@ -33,14 +32,15 @@ const options: {
   },
 ];
 
-export default function Step6Consequence({ onNext, onBack, defaultValue }: Props) {
-  const [selected, setSelected] = useState<ConsequenceType | null>(defaultValue ?? null);
+export default function Step6Consequence({ onNext, onBack }: Props) {
+  // Always start unselected when entering this screen.
+  const [selected, setSelected] = useState<ConsequenceType | null>(null);
 
   return (
     <div className="flex flex-col h-full bg-white">
       {/* Header */}
       <div className="pb-6 flex flex-col gap-4 shrink-0">
-        <ScreenHeader step={7} total={10} onBack={onBack} />
+        <ScreenHeader step={4} total={5} onBack={onBack} />
         <div className="px-4 flex flex-col gap-4">
           <h2 className="font-[family-name:var(--font-manrope)] font-semibold text-[26px] leading-8 tracking-[-0.05rem] text-[#5e160a]">
             What happens if you miss your goal?
@@ -61,13 +61,13 @@ export default function Step6Consequence({ onNext, onBack, defaultValue }: Props
               onClick={() => setSelected(opt.id)}
               className={`flex gap-4 items-start p-[21px] rounded-3xl border text-left ${
                 isSelected
-                  ? "bg-[#fff3ef] border-[#d4481f] shadow-[0px_6px_18px_0px_rgba(11,18,32,0.06)]"
+                  ? "bg-[#fff3ef] border-[#F16746] shadow-[0px_6px_18px_0px_rgba(11,18,32,0.06)]"
                   : "bg-[#fafafa] border-[#e0e0e8]"
               }`}
             >
               {/* Icon */}
               <div
-                className={`rounded-full w-10 h-10 flex items-center justify-center shrink-0 shadow-[3px_3px_10px_0px_rgba(255,217,204,0.5),-3px_-3px_4px_0px_rgba(0,0,0,0.02)] ${
+                className={`rounded-full w-10 h-10 flex items-center justify-center shrink-0 ${
                   isSelected ? "bg-[#fff3ef]" : "bg-white"
                 }`}
               >
@@ -81,12 +81,12 @@ export default function Step6Consequence({ onNext, onBack, defaultValue }: Props
               <div className="flex flex-col gap-4">
                 <p
                   className={`font-[family-name:var(--font-manrope)] font-semibold text-[18px] leading-5 tracking-[-0.025rem] ${
-                    isSelected ? "text-[#5e160a]" : "text-[#0b1220]"
+                    isSelected ? "text-[#F16746]" : "text-[#0b1220]"
                   }`}
                 >
                   {opt.title}
                 </p>
-                <p className="font-[family-name:var(--font-manrope)] text-[13px] leading-[19.5px] text-[#64748b]">
+                <p className={`font-[family-name:var(--font-manrope)] text-[13px] leading-[19.5px] ${isSelected ? "text-[#F16746]" : "text-[#64748b]"}`}>
                   {opt.description}
                 </p>
               </div>

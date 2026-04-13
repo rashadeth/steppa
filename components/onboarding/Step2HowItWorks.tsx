@@ -1,0 +1,183 @@
+"use client";
+
+import { useEffect, useRef, useState, useCallback } from "react";
+import { DotLottieReact } from "@lottiefiles/dotlottie-react";
+import ProgressBar from "./ProgressBar";
+
+// ─── Slide data ────────────────────────────────────────────────────────────
+
+const SLIDES = [
+  {
+    lottie: "https://lottie.host/673c83b0-6903-48c6-bb53-c4f7f517b493/dnUxbVvaJU.lottie",
+    title: "Lock Your Money",
+    subtext: "Choose an amount to lock. It's yours, but untouchable until earned.",
+  },
+  {
+    lottie: "https://lottie.host/53c6648d-f405-4e58-93a4-3662c84442de/wGn4IFqTGD.lottie",
+    title: "Hit Your Steps",
+    subtext: "Set a daily goal. Your phone tracks progress automatically.",
+  },
+  {
+    lottie: "https://lottie.host/62ae93a0-a38c-43e2-9b04-533ac812f293/q7u4Hv3Jck.lottie",
+    title: "Unlock Your Cash",
+    subtext: "Complete your challenge and your money is released back to you.",
+  },
+];
+
+const AUTO_ADVANCE_MS = 4000;
+
+// ─── Props ─────────────────────────────────────────────────────────────────
+
+interface Props {
+  onNext: () => void;
+  onBack: () => void;
+}
+
+// ─── Component ─────────────────────────────────────────────────────────────
+
+export default function Step2HowItWorks({ onNext, onBack }: Props) {
+  const [current, setCurrent]   = useState(0);
+  const timerRef                = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const touchStartX             = useRef<number | null>(null);
+
+  // ── Go to slide ──────────────────────────────────────────────────────────
+  const goTo = useCallback((index: number) => {
+    setCurrent(index);
+  }, []);
+
+  // ── Auto-advance ─────────────────────────────────────────────────────────
+  const resetTimer = useCallback(() => {
+    if (timerRef.current) clearTimeout(timerRef.current);
+    timerRef.current = setTimeout(() => {
+      setCurrent((prev) => (prev + 1) % SLIDES.length);
+    }, AUTO_ADVANCE_MS);
+  }, []);
+
+  useEffect(() => {
+    resetTimer();
+    return () => {
+      if (timerRef.current) clearTimeout(timerRef.current);
+    };
+  }, [current, resetTimer]);
+
+  // ── Swipe handling ───────────────────────────────────────────────────────
+  function handleTouchStart(e: React.TouchEvent) {
+    touchStartX.current = e.touches[0].clientX;
+  }
+
+  function handleTouchEnd(e: React.TouchEvent) {
+    if (touchStartX.current === null) return;
+    const delta = e.changedTouches[0].clientX - touchStartX.current;
+    touchStartX.current = null;
+
+    if (Math.abs(delta) < 40) return;
+
+    if (delta < 0) {
+      goTo((current + 1) % SLIDES.length);
+    } else {
+      goTo((current - 1 + SLIDES.length) % SLIDES.length);
+    }
+    resetTimer();
+  }
+
+  // ── Dot tap ──────────────────────────────────────────────────────────────
+  function handleDotTap(index: number) {
+    goTo(index);
+    resetTimer();
+  }
+
+  return (
+    <div
+      className="flex flex-col h-full bg-white"
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
+    >
+      {/* ── Progress bar ──────────────────────────────────────────────── */}
+      <div className="px-4 pt-10 shrink-0">
+        <ProgressBar step={2} total={4} />
+      </div>
+
+      {/* ── Slide content ─────────────────────────────────────────────── */}
+      <div className="flex-1 flex flex-col items-center justify-center px-6 min-h-0">
+
+        {/* Lottie animations — all preloaded, crossfade via opacity */}
+        <div className="relative w-full max-w-[280px] h-[250px] shrink-0">
+          {SLIDES.map((slide, i) => (
+            <div
+              key={i}
+              className="absolute inset-0 transition-opacity duration-500 ease-in-out will-change-[opacity]"
+              style={{ opacity: i === current ? 1 : 0, zIndex: i === current ? 1 : 0 }}
+            >
+              <DotLottieReact
+                src={slide.lottie}
+                loop
+                autoplay
+                style={{ width: "100%", height: "100%" }}
+              />
+            </div>
+          ))}
+        </div>
+
+        {/* Title + subtext — all preloaded, crossfade via opacity */}
+        <div className="relative w-full max-w-[280px] h-[100px] mt-6 shrink-0">
+          {SLIDES.map((slide, i) => (
+            <div
+              key={i}
+              className="absolute inset-0 transition-opacity duration-500 ease-in-out will-change-[opacity]"
+              style={{ opacity: i === current ? 1 : 0 }}
+            >
+              <h2 className="font-[family-name:var(--font-manrope)] font-semibold text-[24px] leading-8 tracking-[-0.5px] text-[#5e160a] text-center">
+                {slide.title}
+              </h2>
+              <p
+                className={`mx-auto mt-3 font-[family-name:var(--font-manrope)] text-[14px] leading-6 text-[#444459] text-center text-balance ${
+                  i === 0 ? "max-w-[250px]" : "max-w-[220px]"
+                }`}
+              >
+                {slide.subtext}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* ── Dot indicators ────────────────────────────────────────────── */}
+      <div className="flex items-center justify-center gap-2 pb-8 shrink-0">
+        {SLIDES.map((_, i) => (
+          <button
+            key={i}
+            onClick={() => handleDotTap(i)}
+            aria-label={`Go to slide ${i + 1}`}
+            className="rounded-full transition-all duration-300"
+            style={{
+              width:      i === current ? 20 : 8,
+              height:     8,
+              background: i === current ? "#f16746" : "#e0e0e5",
+            }}
+          />
+        ))}
+      </div>
+
+      {/* ── Button row ────────────────────────────────────────────────── */}
+      <div className="flex items-center gap-3 px-4 pb-10 shrink-0">
+        {/* Skip */}
+        <button
+          onClick={onBack}
+          className="h-[52px] px-6 flex items-center justify-center font-[family-name:var(--font-manrope)] font-semibold text-[16px] text-[#5e160a]"
+          style={{ touchAction: "manipulation" }}
+        >
+          Skip
+        </button>
+
+        {/* Continue */}
+        <button
+          onClick={onNext}
+          className="flex-1 h-[52px] flex items-center justify-center rounded-full bg-[#f16746] border border-white shadow-[0px_0px_20px_0px_rgba(0,0,0,0.1)] font-[family-name:var(--font-manrope)] font-semibold text-[16px] text-white active:opacity-80"
+          style={{ touchAction: "manipulation" }}
+        >
+          Continue
+        </button>
+      </div>
+    </div>
+  );
+}

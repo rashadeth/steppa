@@ -38,7 +38,7 @@ export default function RootLayout({
       lang="en"
       className={`${manrope.variable} ${alice.variable} ${dmSans.variable} h-full antialiased`}
     >
-      <body className="min-h-full bg-white">{children}</body>
+      <body className="min-h-full bg-gray-100">{children}</body>
     </html>
   );
 }

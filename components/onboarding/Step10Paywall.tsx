@@ -2,7 +2,7 @@
 
 import { BarChartIcon, TrendingUpIcon, UsersIcon, CloseIcon } from "./icons";
 
-const imgHero = "https://www.figma.com/api/mcp/asset/b64e88c8-c8d6-4d29-a945-d6a9f1ee2979";
+const imgHero = "/paywall-hero.webp";
 
 const features = [
   {
@@ -44,6 +44,9 @@ export default function Step10Paywall({ onUpgrade, onClose }: Props) {
         <img
           src={imgHero}
           alt="Premium vault"
+          loading="eager"
+          fetchPriority="high"
+          decoding="async"
           className="absolute inset-0 w-full h-full object-cover object-top"
         />
         {/* Fade to white */}

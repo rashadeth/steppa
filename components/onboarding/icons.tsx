@@ -242,6 +242,72 @@ export function ShieldTickIcon({ size = 24, className }: P) {
   );
 }
 
+// ─── Step 9 – Goal Created ───────────────────────────────────
+
+// 4-pointed sparkle star — replaces 🎉
+export function CelebrationIcon({ size = 24, className }: P) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" className={className}>
+      <path d="M12 2 L13.9 10.1 L22 12 L13.9 13.9 L12 22 L10.1 13.9 L2 12 L10.1 10.1 Z" />
+      <circle cx="19.5" cy="4.5" r="1.3" />
+      <circle cx="4.5" cy="19.5" r="1" />
+      <circle cx="20" cy="18" r="0.8" />
+    </svg>
+  );
+}
+
+// Padlock (filled) — replaces 💰 "Locked"
+export function LockFilledIcon({ size = 24, className }: P) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" className={className}>
+      <rect x="4.5" y="11" width="15" height="11" rx="2.5" />
+      <path d="M8 11V8a4 4 0 0 1 8 0v3" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+// Sneaker side view — replaces 👟
+export function SneakerFilledIcon({ size = 24, className }: P) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" className={className}>
+      <path d="M3.5 15.5 C3.5 15.5 4 12.5 7.5 12 L11 12 L13.5 8.5 L16.5 8.5 C19 8.5 21.5 10 21.5 12.5 L21.5 13.5 C21.5 14.6 20.6 15.5 19.5 15.5 Z" />
+      <rect x="3" y="15.5" width="19" height="3" rx="1.5" />
+    </svg>
+  );
+}
+
+// Calendar (filled) — replaces 📅
+export function CalendarFilledIcon({ size = 24, className }: P) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" className={className}>
+      <rect x="3" y="5.5" width="18" height="16" rx="2.5" />
+      <rect x="8" y="2" width="2.2" height="5" rx="1.1" />
+      <rect x="13.8" y="2" width="2.2" height="5" rx="1.1" />
+      <rect x="3" y="9.5" width="18" height="1.5" fill="white" opacity="0.2" />
+      <circle cx="8.5" cy="14.5" r="1.2" fill="white" opacity="0.65" />
+      <circle cx="12" cy="14.5" r="1.2" fill="white" opacity="0.65" />
+      <circle cx="15.5" cy="14.5" r="1.2" fill="white" opacity="0.65" />
+      <circle cx="8.5" cy="18.5" r="1.2" fill="white" opacity="0.65" />
+      <circle cx="12" cy="18.5" r="1.2" fill="white" opacity="0.65" />
+    </svg>
+  );
+}
+
+// Running figure — replaces 🏃 in CTA
+export function RunnerFilledIcon({ size = 24, className }: P) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" className={className}>
+      <circle cx="14.5" cy="4" r="2" />
+      {/* torso + arms */}
+      <path d="M13 6.5 L10.5 12 L7 13.5 L8 15.5 L12.5 13.5 L15.5 8.5 L18 10.5 L19.5 9 L16 5.5 Z" />
+      {/* front leg */}
+      <path d="M10.5 12 L8.5 17 L6.5 20 L8.5 21 L11 18 L13 13.5 Z" />
+      {/* back leg */}
+      <path d="M12.5 13.5 L14 18 L16 20.5 L17.5 19 L16 17 L14.5 13 Z" />
+    </svg>
+  );
+}
+
 // ─── Step 10 – Paywall ───────────────────────────────────────
 
 export function BarChartIcon({ size = 24, className }: P) {

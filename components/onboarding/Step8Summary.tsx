@@ -4,7 +4,7 @@ import ScreenHeader from "./ScreenHeader";
 import CTAButton from "./CTAButton";
 import { TargetIcon, CalendarIcon, VaultIcon, ShieldTickIcon } from "./icons";
 
-type DurationType = 7 | 14 | 21 | "custom";
+type DurationType = 7 | 14 | 21 | number | "custom";
 
 interface Props {
   stepGoal: number;
@@ -59,7 +59,7 @@ export default function Step8Summary({ stepGoal, lockAmount, duration, onStart, 
     <div className="flex flex-col h-full bg-white">
       {/* Header */}
       <div className="pb-6 flex flex-col gap-3 shrink-0">
-        <ScreenHeader step={9} total={10} onBack={onBack} />
+        <ScreenHeader step={5} total={5} onBack={onBack} />
         <div className="px-4 flex flex-col gap-3">
           <h2 className="font-[family-name:var(--font-manrope)] font-semibold text-[26px] leading-8 tracking-[-0.05rem] text-[#5e160a]">
             You&apos;re ready

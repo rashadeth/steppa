@@ -1,48 +1,79 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import ProgressBar from "./ProgressBar";
 
-const WORDS = [
-  { text: "discipline", color: "#FFFFFF"  },
-  { text: "patience",   color: "#FFE4D6"  },
-  { text: "hardwork",   color: "#FFFFFF"  },
+const imgHero = "https://www.figma.com/api/mcp/asset/c5254281-3a51-4227-857b-0840f7d0b5eb";
+const imgDots = "https://www.figma.com/api/mcp/asset/00411cac-8cd0-44ca-a759-2f1ebc6ea101";
+const STEP2_LOTTIES = [
+  "https://lottie.host/673c83b0-6903-48c6-bb53-c4f7f517b493/dnUxbVvaJU.lottie",
+  "https://lottie.host/53c6648d-f405-4e58-93a4-3662c84442de/wGn4IFqTGD.lottie",
+  "https://lottie.host/62ae93a0-a38c-43e2-9b04-533ac812f293/q7u4Hv3Jck.lottie",
 ];
 
-const imgHero = "https://www.figma.com/api/mcp/asset/1fb6fe31-5631-429b-ac30-30cb648b65f9";
-const imgDots = "https://www.figma.com/api/mcp/asset/d650960f-f64a-46ce-9265-32a899c5479c";
+const FLIP_WORDS = ["discipline", "patience", "hardwork"];
+const HOLD_MS    = 2500;
+const FLIP_MS    = 500;
+
+// Line-height of the h1 in px — must match leading-[49px]
+const LINE_H = 49;
 
 interface Props {
   onNext: () => void;
 }
 
 export default function Step1Welcome({ onNext }: Props) {
-  const [wordIdx, setWordIdx] = useState(0);
-  const [visible, setVisible] = useState(true);
+  const [wordIndex, setWordIndex] = useState(0);
 
+  // Advance word every HOLD_MS; CSS transition handles the 500ms flip
   useEffect(() => {
-    const interval = setInterval(() => {
-      // fade out
-      setVisible(false);
-      setTimeout(() => {
-        // swap word then fade in
-        setWordIdx((i) => (i + 1) % WORDS.length);
-        setVisible(true);
-      }, 350);
-    }, 2500);
-    return () => clearInterval(interval);
+    const timer = setTimeout(() => {
+      setWordIndex((i) => (i + 1) % FLIP_WORDS.length);
+    }, HOLD_MS);
+    return () => clearTimeout(timer);
+  }, [wordIndex]);
+
+  // Warm Step 2 animation assets so the first slide appears faster after tap.
+  useEffect(() => {
+    STEP2_LOTTIES.forEach((url) => {
+      void fetch(url).catch(() => {
+        // Ignore preload failures; Step 2 still loads assets normally.
+      });
+    });
   }, []);
 
   return (
     <div className="relative w-full h-full bg-[#16141a] overflow-hidden">
-      {/* Hero image — oscillates horizontally + bobs + breathes */}
+      {/* ── Ticker styles ──────────────────────────────────────────────── */}
+      <style>{`
+        .word-ticker {
+          display: inline-block;
+          overflow: hidden;
+          height: ${LINE_H}px;
+          vertical-align: bottom;
+        }
+        .word-ticker-inner {
+          display: flex;
+          flex-direction: column;
+          transition: transform ${FLIP_MS}ms cubic-bezier(0.16, 1, 0.3, 1);
+          will-change: transform;
+        }
+        .word-ticker-item {
+          display: block;
+          height: ${LINE_H}px;
+          line-height: ${LINE_H}px;
+          white-space: nowrap;
+        }
+      `}</style>
+
+      {/* Hero image */}
       <img
         src={imgHero}
         alt="Person running with credit card"
         className="absolute inset-0 w-full h-full object-cover object-top"
       />
 
-      {/* Orange tint overlay — static */}
+      {/* Orange tint overlay */}
       <div className="absolute inset-0 bg-[rgba(239,93,62,0.25)] pointer-events-none" />
 
       {/* Dot pattern overlay */}
@@ -57,49 +88,51 @@ export default function Step1Welcome({ onNext }: Props) {
 
       {/* Progress bar */}
       <div className="absolute top-0 left-0 right-0 px-4 pt-10 z-10">
-        <ProgressBar step={1} total={10} light />
+        <ProgressBar step={1} total={4} light />
       </div>
 
-      {/* Headline + subtext — positioned at ~56% down */}
+      {/* Headline + subtext */}
       <div
-        className="absolute left-0 right-0 z-10 px-4 backdrop-blur-[0.75px] bg-[rgba(0,0,0,0.05)]"
+        className="absolute left-0 right-0 z-10 px-4 backdrop-blur-[0.75px] bg-[rgba(0,0,0,0.02)]"
         style={{ top: "475px" }}
       >
         <div className="pt-[7px]">
           <h1 className="font-[family-name:var(--font-alice)] text-[52px] leading-[49px] tracking-[-3.2px] text-white">
             Turn{" "}
-            <span
-              style={{
-                color: WORDS[wordIdx].color,
-                opacity: visible ? 1 : 0,
-                transition: "opacity 0.35s ease-in-out",
-                display: "inline",
-              }}
-            >
-              {WORDS[wordIdx].text}
+            <span className="word-ticker">
+              <span
+                className="word-ticker-inner"
+                style={{ transform: `translateY(-${wordIndex * LINE_H}px)` }}
+              >
+                {FLIP_WORDS.map((word) => (
+                  <span key={word} className="word-ticker-item">
+                    {word}
+                  </span>
+                ))}
+              </span>
             </span>
             <br />
             into money
           </h1>
-          <p
-            className="mt-3 font-[family-name:var(--font-manrope)] font-medium text-[17px] leading-7 text-white"
-            style={{ textShadow: "0 2px 20px #505050" }}
-          >
-            Lock your money. Unlock it with effort.
-          </p>
+          <div className="h-[90px] flex items-start pt-2">
+            <p
+              className="font-[family-name:var(--font-manrope)] font-medium text-[17px] leading-7 text-white"
+              style={{ textShadow: "0 2px 20px #505050" }}
+            >
+              Lock your money. Unlock it with effort.
+            </p>
+          </div>
         </div>
-        {/* spacer to push footer clear of text */}
-        <div className="h-[90px]" />
       </div>
 
       {/* CTA footer */}
-      <div className="absolute bottom-0 left-0 right-0 z-10 backdrop-blur-[2px] bg-[rgba(23,20,20,0.02)] px-4 pb-10 pt-9">
+      <div className="absolute bottom-0 left-0 right-0 z-10 backdrop-blur-[2px] bg-[rgba(23,20,20,0.02)] px-4 pb-10 pt-6">
         <button
           onClick={onNext}
-          className="w-full h-[52px] flex items-center justify-center rounded-full bg-[#F16746] border border-[#f78b68] shadow-[inset_0px_3px_12px_0px_rgba(0,0,0,0.11)] font-[family-name:var(--font-manrope)] font-semibold text-[16px] leading-5 text-white active:opacity-80"
+          className="w-full h-[52px] flex items-center justify-center rounded-full bg-[#F16746] border border-[#ffb89e] shadow-[0px_5.566px_13.915px_0px_rgba(0,0,0,0.25)] font-[family-name:var(--font-manrope)] font-semibold text-[16px] leading-5 text-white active:opacity-80"
           style={{ touchAction: "manipulation" }}
         >
-          Start challenge
+          Continue progress
         </button>
       </div>
     </div>
