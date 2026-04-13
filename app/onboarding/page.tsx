@@ -6,9 +6,9 @@ export const metadata = {
 
 export default function OnboardingPage() {
   return (
-    <main className="flex min-h-0 min-h-[100dvh] flex-1 items-center justify-center overflow-x-hidden bg-gray-100 px-4 py-8 sm:px-6 sm:py-10">
-      {/* Full-screen preview on mobile */}
-      <div className="flex h-[100dvh] max-h-[100dvh] w-full min-h-0 flex-col overflow-hidden rounded-none bg-white sm:hidden">
+    <main className="m-0 flex h-full min-h-0 min-h-dvh w-full min-w-0 flex-1 flex-col overflow-x-hidden bg-gray-100 p-0 sm:items-center sm:justify-center">
+      {/* Full-screen preview on mobile — edge to edge */}
+      <div className="flex h-[100dvh] max-h-[100dvh] w-full min-h-0 flex-1 flex-col overflow-hidden bg-white sm:hidden">
         <OnboardingFlow />
       </div>
 

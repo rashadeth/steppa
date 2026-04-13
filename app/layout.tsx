@@ -42,9 +42,11 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${manrope.variable} ${alice.variable} ${dmSans.variable} h-full antialiased`}
+      className={`${manrope.variable} ${alice.variable} ${dmSans.variable} m-0 h-full w-full p-0 antialiased`}
     >
-      <body className="min-h-full min-h-dvh bg-gray-100">{children}</body>
+      <body className="m-0 min-h-dvh w-full bg-gray-100 p-0 text-[var(--foreground)] antialiased">
+        <div className="app-root">{children}</div>
+      </body>
     </html>
   );
 }
