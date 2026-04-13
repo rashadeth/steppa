@@ -1,14 +1,25 @@
 "use client";
 
+import { useContext } from "react";
 import ProgressBar from "./ProgressBar";
+import { GoalProgressRunContext } from "./GoalProgressRunContext";
 
 interface ScreenHeaderProps {
   step: number;
   total: number;
   onBack: () => void;
+  /** `intro` = name + early onboarding; `goal` = set-goal flow (uses goal run id for bar reset). */
+  progressGroup?: "intro" | "goal";
 }
 
-export default function ScreenHeader({ step, total, onBack }: ScreenHeaderProps) {
+export default function ScreenHeader({
+  step,
+  total,
+  onBack,
+  progressGroup = "goal",
+}: ScreenHeaderProps) {
+  const goalRun = useContext(GoalProgressRunContext);
+  const progressRunId = progressGroup === "goal" ? goalRun : 0;
   return (
     // flex flex-col makes back-button and progress bar stack vertically.
     // gap-6 (24px) is the guaranteed space between them — no absolute positioning.
@@ -29,7 +40,12 @@ export default function ScreenHeader({ step, total, onBack }: ScreenHeaderProps)
         </svg>
       </button>
 
-      <ProgressBar step={step} total={total} />
+      <ProgressBar
+        step={step}
+        total={total}
+        progressGroup={progressGroup}
+        progressRunId={progressRunId}
+      />
     </div>
   );
 }

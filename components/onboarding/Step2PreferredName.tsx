@@ -29,7 +29,7 @@ export default function Step2PreferredName({ onNext, onBack, defaultValue }: Pro
         />
       }
     >
-      <ScreenHeader step={2} total={5} onBack={onBack} />
+      <ScreenHeader step={2} total={5} onBack={onBack} progressGroup="intro" />
 
       <div className="px-4 pb-6 pt-2 flex flex-col gap-4">
         <h2 className="font-[family-name:var(--font-manrope)] font-semibold text-[26px] leading-8 tracking-[-0.05rem] text-[#5e160a]">

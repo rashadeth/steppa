@@ -15,6 +15,7 @@ import Step4Duration from "./Step4Duration";
 import Step6Consequence from "./Step6Consequence";
 import Step8Summary from "./Step8Summary";
 import Step9GoalCreated from "./Step9GoalCreated";
+import { GoalProgressRunContext } from "./GoalProgressRunContext";
 import type { MotivationType } from "./Step3Motivation";
 import type { DurationType } from "./Step4Duration";
 
@@ -33,6 +34,7 @@ export default function OnboardingFlow() {
   const [step, setStep] = useState(1);
   const [goalStep, setGoalStep] = useState(1);
   const [hasActiveGoal, setHasActiveGoal] = useState(false);
+  const [goalProgressRun, setGoalProgressRun] = useState(0);
   const [state, setState] = useState<OnboardingState>({});
 
   /** Intro + paywall: steps 1–6 (welcome → name → how → motivation → permissions → paywall). */
@@ -129,6 +131,7 @@ export default function OnboardingFlow() {
               }));
               setHasActiveGoal(false);
               setGoalStep(1);
+              setGoalProgressRun((n) => n + 1);
               setStep(8);
             }}
           />
@@ -136,69 +139,73 @@ export default function OnboardingFlow() {
       )}
 
       {/* 8 — Set Goal Flow */}
-      {step === 8 && goalStep === 1 && (
-        <Step5MoneyLock
-          defaultValue={state.lockAmount}
-          onBack={() => setStep(7)}
-          onNext={(lockAmount) => {
-            setState((s) => ({ ...s, lockAmount }));
-            setGoalStep(2);
-          }}
-        />
-      )}
+      {step === 8 && (
+        <GoalProgressRunContext.Provider value={goalProgressRun}>
+          {goalStep === 1 && (
+            <Step5MoneyLock
+              defaultValue={state.lockAmount}
+              onBack={() => setStep(7)}
+              onNext={(lockAmount) => {
+                setState((s) => ({ ...s, lockAmount }));
+                setGoalStep(2);
+              }}
+            />
+          )}
 
-      {step === 8 && goalStep === 2 && (
-        <Step4StepGoal
-          defaultValue={state.stepGoal}
-          onBack={() => setGoalStep(1)}
-          onNext={(stepGoal) => {
-            setState((s) => ({ ...s, stepGoal }));
-            setGoalStep(3);
-          }}
-        />
-      )}
+          {goalStep === 2 && (
+            <Step4StepGoal
+              defaultValue={state.stepGoal}
+              onBack={() => setGoalStep(1)}
+              onNext={(stepGoal) => {
+                setState((s) => ({ ...s, stepGoal }));
+                setGoalStep(3);
+              }}
+            />
+          )}
 
-      {step === 8 && goalStep === 3 && (
-        <Step4Duration
-          defaultValue={state.duration}
-          onBack={() => setGoalStep(2)}
-          onNext={(duration) => {
-            setState((s) => ({ ...s, duration }));
-            setGoalStep(4);
-          }}
-        />
-      )}
+          {goalStep === 3 && (
+            <Step4Duration
+              defaultValue={state.duration}
+              onBack={() => setGoalStep(2)}
+              onNext={(duration) => {
+                setState((s) => ({ ...s, duration }));
+                setGoalStep(4);
+              }}
+            />
+          )}
 
-      {step === 8 && goalStep === 4 && (
-        <Step6Consequence
-          onBack={() => setGoalStep(3)}
-          onNext={(consequence) => {
-            setState((s) => ({ ...s, consequence }));
-            setGoalStep(5);
-          }}
-        />
-      )}
+          {goalStep === 4 && (
+            <Step6Consequence
+              onBack={() => setGoalStep(3)}
+              onNext={(consequence) => {
+                setState((s) => ({ ...s, consequence }));
+                setGoalStep(5);
+              }}
+            />
+          )}
 
-      {step === 8 && goalStep === 5 && (
-        <Step8Summary
-          lockAmount={state.lockAmount ?? 10000}
-          stepGoal={state.stepGoal ?? 8000}
-          duration={state.duration}
-          onBack={() => setGoalStep(4)}
-          onStart={() => setGoalStep(6)}
-        />
-      )}
+          {goalStep === 5 && (
+            <Step8Summary
+              lockAmount={state.lockAmount ?? 10000}
+              stepGoal={state.stepGoal ?? 8000}
+              duration={state.duration}
+              onBack={() => setGoalStep(4)}
+              onStart={() => setGoalStep(6)}
+            />
+          )}
 
-      {step === 8 && goalStep === 6 && (
-        <Step9GoalCreated
-          lockAmount={state.lockAmount ?? 10000}
-          stepGoal={state.stepGoal ?? 8000}
-          duration={state.duration}
-          onNext={() => {
-            setHasActiveGoal(true);
-            setStep(7);
-          }}
-        />
+          {goalStep === 6 && (
+            <Step9GoalCreated
+              lockAmount={state.lockAmount ?? 10000}
+              stepGoal={state.stepGoal ?? 8000}
+              duration={state.duration}
+              onNext={() => {
+                setHasActiveGoal(true);
+                setStep(7);
+              }}
+            />
+          )}
+        </GoalProgressRunContext.Provider>
       )}
     </div>
   );

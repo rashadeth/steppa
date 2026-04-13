@@ -83,7 +83,7 @@ export default function Step1Welcome({ onNext }: Props) {
       {/* Foreground: progress + scroll + sticky CTA */}
       <div className="relative z-10 flex h-full min-h-0 flex-col">
         <div className="shrink-0 px-4 pt-10">
-          <ProgressBar step={1} total={5} light />
+          <ProgressBar step={1} total={5} light progressGroup="intro" />
         </div>
 
         <div className="min-h-0 flex-1 overflow-y-auto overscroll-y-contain">

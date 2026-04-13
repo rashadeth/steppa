@@ -71,7 +71,7 @@ export default function Step3Motivation({ onNext, onBack, defaultValue }: Props)
       }
     >
       <div className="px-4 pt-10 pb-0 flex flex-col gap-6">
-        <ProgressBar step={4} total={5} />
+        <ProgressBar step={4} total={5} progressGroup="intro" />
         <div className="flex flex-col gap-4">
           <h2 className="font-[family-name:var(--font-manrope)] font-medium text-[32px] leading-10 tracking-[-0.5px] text-[#5e160a]">
             What&apos;s driving you?
