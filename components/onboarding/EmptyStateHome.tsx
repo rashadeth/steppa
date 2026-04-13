@@ -1,7 +1,7 @@
 "use client";
 
 import { VaultIcon } from "./icons";
-import { House, SneakerMove, Bank, UserCircle } from "@phosphor-icons/react";
+import { House, SneakerMove, Bank, UserCircle, Info } from "@phosphor-icons/react";
 import { useTimeOfDayGreeting } from "@/hooks/useTimeOfDayGreeting";
 
 interface Props {
@@ -28,6 +28,20 @@ export default function EmptyStateHome({ greetingName, onSetGoals }: Props) {
       </div>
 
       <div className="min-h-0 flex-1 space-y-4 overflow-y-auto overscroll-y-contain px-4 pb-4">
+        <div
+          className="flex gap-3 rounded-2xl border border-[#ffb89e] bg-[#fff3ef] px-4 py-3"
+          role="note"
+          aria-label="Trial balance information"
+        >
+          <Info size={22} weight="fill" className="shrink-0 text-[#F16746]" aria-hidden="true" />
+          <p className="font-[family-name:var(--font-manrope)] text-[12px] leading-[18px] text-[#444459]">
+            You have a dummy available balance of{" "}
+            <span className="font-semibold text-[#5e160a]">₦30,000</span> for a{" "}
+            <span className="font-semibold text-[#5e160a]">7-day</span> free trial. After that,
+            you will be required to deposit real money and commit.
+          </p>
+        </div>
+
         {/* Steps empty card */}
         <div className="rounded-[32px] border border-[#e6e9ef] bg-white px-5 pt-[25px] pb-4">
           <div className="mb-3 flex items-center justify-between">
