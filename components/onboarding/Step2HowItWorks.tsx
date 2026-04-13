@@ -94,7 +94,7 @@ export default function Step2HowItWorks({ onNext, onSkip }: Props) {
       onTouchEnd={handleTouchEnd}
     >
       <div className="shrink-0 px-4 pt-10">
-        <ProgressBar step={2} total={4} />
+        <ProgressBar step={3} total={5} />
       </div>
 
       <div className="min-h-0 flex-1 overflow-y-auto overscroll-y-contain">

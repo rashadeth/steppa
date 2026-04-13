@@ -97,7 +97,7 @@ export default function Step7Permissions({ onNext, onSkip, onBack }: Props) {
             ← Back
           </button>
 
-          <ProgressBar step={4} total={4} />
+          <ProgressBar step={5} total={5} />
 
           <h2 className="font-[family-name:var(--font-manrope)] font-semibold text-[26px] leading-8 tracking-[-0.8px] text-[#5e160a]">
             Track your steps

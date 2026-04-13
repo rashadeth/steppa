@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Step1Welcome from "./Step1Welcome";
+import Step2PreferredName from "./Step2PreferredName";
 import Step2HowItWorks from "./Step2HowItWorks";
 import Step3Motivation from "./Step3Motivation";
 import Step7Permissions from "./Step7Permissions";
@@ -20,6 +21,7 @@ import type { DurationType } from "./Step4Duration";
 const imgPaywallHero = "/paywall-hero.webp";
 
 interface OnboardingState {
+  preferredName?: string;
   motivation?: MotivationType;
   lockAmount?: number;
   stepGoal?: number;
@@ -33,27 +35,41 @@ export default function OnboardingFlow() {
   const [hasActiveGoal, setHasActiveGoal] = useState(false);
   const [state, setState] = useState<OnboardingState>({});
 
+  /** Intro + paywall: steps 1–6 (welcome → name → how → motivation → permissions → paywall). */
   const next = () => setStep((s) => Math.min(s + 1, 6));
   const back = () => setStep((s) => Math.max(s - 1, 1));
 
+  const greetingName = state.preferredName?.trim() || "Friend";
+
   return (
     <div className="flex h-full min-h-0 w-full flex-col">
-      {/* Preload the paywall hero early to avoid visible image pop-in on step transition. */}
       <img src={imgPaywallHero} alt="" aria-hidden="true" className="hidden" loading="eager" />
 
       {/* 1 — Welcome */}
       {step === 1 && <Step1Welcome onNext={next} />}
 
-      {/* 2 — How It Works */}
+      {/* 2 — What should we call you */}
       {step === 2 && (
-        <Step2HowItWorks
-          onNext={next}
-          onSkip={() => setStep(5)}
+        <Step2PreferredName
+          defaultValue={state.preferredName}
+          onBack={back}
+          onNext={(name) => {
+            setState((s) => ({ ...s, preferredName: name }));
+            next();
+          }}
         />
       )}
 
-      {/* 3 — Motivation */}
+      {/* 3 — How It Works */}
       {step === 3 && (
+        <Step2HowItWorks
+          onNext={next}
+          onSkip={() => setStep(6)}
+        />
+      )}
+
+      {/* 4 — Motivation */}
+      {step === 4 && (
         <Step3Motivation
           defaultValue={state.motivation}
           onBack={back}
@@ -64,8 +80,8 @@ export default function OnboardingFlow() {
         />
       )}
 
-      {/* 4 — Permissions */}
-      {step === 4 && (
+      {/* 5 — Permissions */}
+      {step === 5 && (
         <Step7Permissions
           onBack={back}
           onNext={next}
@@ -73,26 +89,28 @@ export default function OnboardingFlow() {
         />
       )}
 
-      {/* 5 — Subscription Paywall */}
-      {step === 5 && (
+      {/* 6 — Subscription Paywall */}
+      {step === 6 && (
         <Step10Paywall
           onClose={() => {
             setHasActiveGoal(false);
             setGoalStep(1);
-            setState({});
-            setStep(6);
+            setState((prev) => ({
+              preferredName: prev.preferredName,
+            }));
+            setStep(7);
           }}
           onUpgrade={() => {
-            // TODO: wire purchase flow and then route to app.
             alert("Pro upgrade started! 🚀");
           }}
         />
       )}
 
-      {/* 6 — Home Empty State */}
-      {step === 6 && (
+      {/* 7 — Home */}
+      {step === 7 && (
         hasActiveGoal ? (
           <HomeWithGoal
+            greetingName={greetingName}
             lockAmount={state.lockAmount ?? 10000}
             stepGoal={state.stepGoal ?? 8000}
             duration={state.duration}
@@ -100,6 +118,7 @@ export default function OnboardingFlow() {
           />
         ) : (
           <EmptyStateHome
+            greetingName={greetingName}
             onSetGoals={() => {
               setState((s) => ({
                 ...s,
@@ -110,17 +129,17 @@ export default function OnboardingFlow() {
               }));
               setHasActiveGoal(false);
               setGoalStep(1);
-              setStep(7);
+              setStep(8);
             }}
           />
         )
       )}
 
-      {/* 7 — Set Goal Flow */}
-      {step === 7 && goalStep === 1 && (
+      {/* 8 — Set Goal Flow */}
+      {step === 8 && goalStep === 1 && (
         <Step5MoneyLock
           defaultValue={state.lockAmount}
-          onBack={() => setStep(6)}
+          onBack={() => setStep(7)}
           onNext={(lockAmount) => {
             setState((s) => ({ ...s, lockAmount }));
             setGoalStep(2);
@@ -128,7 +147,7 @@ export default function OnboardingFlow() {
         />
       )}
 
-      {step === 7 && goalStep === 2 && (
+      {step === 8 && goalStep === 2 && (
         <Step4StepGoal
           defaultValue={state.stepGoal}
           onBack={() => setGoalStep(1)}
@@ -139,7 +158,7 @@ export default function OnboardingFlow() {
         />
       )}
 
-      {step === 7 && goalStep === 3 && (
+      {step === 8 && goalStep === 3 && (
         <Step4Duration
           defaultValue={state.duration}
           onBack={() => setGoalStep(2)}
@@ -150,7 +169,7 @@ export default function OnboardingFlow() {
         />
       )}
 
-      {step === 7 && goalStep === 4 && (
+      {step === 8 && goalStep === 4 && (
         <Step6Consequence
           onBack={() => setGoalStep(3)}
           onNext={(consequence) => {
@@ -160,7 +179,7 @@ export default function OnboardingFlow() {
         />
       )}
 
-      {step === 7 && goalStep === 5 && (
+      {step === 8 && goalStep === 5 && (
         <Step8Summary
           lockAmount={state.lockAmount ?? 10000}
           stepGoal={state.stepGoal ?? 8000}
@@ -170,14 +189,14 @@ export default function OnboardingFlow() {
         />
       )}
 
-      {step === 7 && goalStep === 6 && (
+      {step === 8 && goalStep === 6 && (
         <Step9GoalCreated
           lockAmount={state.lockAmount ?? 10000}
           stepGoal={state.stepGoal ?? 8000}
           duration={state.duration}
           onNext={() => {
             setHasActiveGoal(true);
-            setStep(6);
+            setStep(7);
           }}
         />
       )}

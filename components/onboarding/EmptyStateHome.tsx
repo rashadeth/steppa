@@ -2,21 +2,26 @@
 
 import { VaultIcon } from "./icons";
 import { House, SneakerMove, Bank, UserCircle } from "@phosphor-icons/react";
+import { useTimeOfDayGreeting } from "@/hooks/useTimeOfDayGreeting";
 
 interface Props {
+  /** Shown under the time-based greeting on the home header. */
+  greetingName: string;
   onSetGoals: () => void;
 }
 
-export default function EmptyStateHome({ onSetGoals }: Props) {
+export default function EmptyStateHome({ greetingName, onSetGoals }: Props) {
+  const timeGreeting = useTimeOfDayGreeting();
+
   return (
     <div className="flex h-full min-h-0 flex-col bg-white">
       <div className="flex shrink-0 items-center justify-between px-4 pt-[74px] pb-6">
         <div className="flex flex-col gap-[2px]">
           <p className="font-[family-name:var(--font-manrope)] font-medium text-[14px] leading-[14px] tracking-[-0.7px] text-[#444459]">
-            Good morning 👋
+            {timeGreeting} 👋
           </p>
           <h2 className="font-[family-name:var(--font-manrope)] font-semibold text-[26px] leading-8 tracking-[-0.8px] text-[#080814]">
-            Ian
+            {greetingName}
           </h2>
         </div>
         <div className="h-11 w-11 rounded-full border border-[#e6e9ef] bg-white" aria-hidden="true" />
