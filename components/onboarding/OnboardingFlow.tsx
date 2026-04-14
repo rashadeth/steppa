@@ -60,6 +60,17 @@ export default function OnboardingFlow() {
     }
   };
 
+  const abortActiveChallenge = () => {
+    setHasActiveGoal(false);
+    setState((s) => ({
+      ...s,
+      lockAmount: undefined,
+      stepGoal: undefined,
+      duration: undefined,
+      consequence: undefined,
+    }));
+  };
+
   /** Intro + paywall: steps 1–6 (welcome → name → how → motivation → permissions → paywall). */
   const next = () => setStep((s) => Math.min(s + 1, 6));
   const back = () => setStep((s) => Math.max(s - 1, 1));
@@ -139,6 +150,7 @@ export default function OnboardingFlow() {
             greetingName={greetingName}
             profileImageUrl={state.profileImageUrl}
             onProfileImageChange={setProfileImageUrl}
+            onAbortChallenge={abortActiveChallenge}
             lockAmount={state.lockAmount ?? 10000}
             stepGoal={state.stepGoal ?? 8000}
             duration={state.duration}
