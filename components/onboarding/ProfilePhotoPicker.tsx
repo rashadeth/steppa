@@ -3,20 +3,6 @@
 import { useCallback, useRef, useState } from "react";
 import { Camera, UserCircle, X } from "@phosphor-icons/react";
 
-/** Stable portrait URLs (randomuser.me): 3 male, 3 female presets. */
-export const PRESET_AVATARS = {
-  male: [
-    { id: "m1", src: "https://randomuser.me/api/portraits/men/15.jpg", label: "Male 1" },
-    { id: "m2", src: "https://randomuser.me/api/portraits/men/32.jpg", label: "Male 2" },
-    { id: "m3", src: "https://randomuser.me/api/portraits/men/67.jpg", label: "Male 3" },
-  ],
-  female: [
-    { id: "f1", src: "https://randomuser.me/api/portraits/women/25.jpg", label: "Female 1" },
-    { id: "f2", src: "https://randomuser.me/api/portraits/women/44.jpg", label: "Female 2" },
-    { id: "f3", src: "https://randomuser.me/api/portraits/women/68.jpg", label: "Female 3" },
-  ],
-} as const;
-
 async function fileToJpegDataUrl(file: File, maxEdge = 384, quality = 0.86): Promise<string> {
   const bmp = await createImageBitmap(file);
   const scale = Math.min(1, maxEdge / Math.max(bmp.width, bmp.height));
@@ -47,14 +33,6 @@ export default function ProfilePhotoPicker({ imageUrl, onChange }: Props) {
     setOpen(false);
     setError(null);
   }, []);
-
-  const pickPreset = useCallback(
-    (src: string) => {
-      onChange(src);
-      close();
-    },
-    [onChange, close],
-  );
 
   const onFile = useCallback(
     async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -135,7 +113,7 @@ export default function ProfilePhotoPicker({ imageUrl, onChange }: Props) {
 
             <div className="min-h-0 flex-1 overflow-y-auto overscroll-y-contain px-5 pb-6 pt-4">
               <p className="font-[family-name:var(--font-manrope)] text-[13px] leading-5 text-[#64748b]">
-                Upload a photo from your device, or pick an avatar. Your choice is saved on this device.
+                Upload a photo from your device. Your choice is saved on this device.
               </p>
 
               <input
@@ -161,38 +139,6 @@ export default function ProfilePhotoPicker({ imageUrl, onChange }: Props) {
                   {error}
                 </p>
               )}
-
-              <p className="mt-6 font-[family-name:var(--font-manrope)] font-semibold text-[14px] text-[#5e160a]">
-                Male avatars
-              </p>
-              <div className="mt-2 grid grid-cols-3 gap-3">
-                {PRESET_AVATARS.male.map((a) => (
-                  <button
-                    key={a.id}
-                    type="button"
-                    onClick={() => pickPreset(a.src)}
-                    className="overflow-hidden rounded-2xl border-2 border-transparent ring-offset-2 transition-all hover:border-[#ffb89e] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#F16746]"
-                  >
-                    <img src={a.src} alt={a.label} className="aspect-square w-full object-cover" loading="lazy" />
-                  </button>
-                ))}
-              </div>
-
-              <p className="mt-6 font-[family-name:var(--font-manrope)] font-semibold text-[14px] text-[#5e160a]">
-                Female avatars
-              </p>
-              <div className="mt-2 grid grid-cols-3 gap-3">
-                {PRESET_AVATARS.female.map((a) => (
-                  <button
-                    key={a.id}
-                    type="button"
-                    onClick={() => pickPreset(a.src)}
-                    className="overflow-hidden rounded-2xl border-2 border-transparent ring-offset-2 transition-all hover:border-[#ffb89e] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#F16746]"
-                  >
-                    <img src={a.src} alt={a.label} className="aspect-square w-full object-cover" loading="lazy" />
-                  </button>
-                ))}
-              </div>
 
               {hasPhoto && (
                 <button
