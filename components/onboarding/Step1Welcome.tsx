@@ -3,8 +3,14 @@
 import { useEffect, useState } from "react";
 import ProgressBar from "./ProgressBar";
 
-const imgHero = "https://www.figma.com/api/mcp/asset/c5254281-3a51-4227-857b-0840f7d0b5eb";
-const imgDots = "https://www.figma.com/api/mcp/asset/00411cac-8cd0-44ca-a759-2f1ebc6ea101";
+/**
+ * Hero must live under `public/` (e.g. `/onboarding/welcome-hero.svg`).
+ * Do not use `https://www.figma.com/api/mcp/asset/...` here: those URLs come from
+ * Cursor’s Figma MCP bridge, expire or 404 without that session, and never ship as
+ * stable assets. Export the frame from Figma (right‑click → Export → PNG/WebP/SVG)
+ * and save it into `public/onboarding/` with this filename, or swap the path below.
+ */
+const imgHero = "/onboarding/welcome-hero.svg";
 const STEP2_LOTTIES = [
   "https://lottie.host/673c83b0-6903-48c6-bb53-c4f7f517b493/dnUxbVvaJU.lottie",
   "https://lottie.host/53c6648d-f405-4e58-93a4-3662c84442de/wGn4IFqTGD.lottie",
@@ -72,11 +78,11 @@ export default function Step1Welcome({ onNext }: Props) {
       />
       <div className="pointer-events-none absolute inset-0 z-0 bg-[rgba(239,93,62,0.25)]" />
       <div
-        className="pointer-events-none absolute inset-0 z-0"
+        className="pointer-events-none absolute inset-0 z-0 bg-repeat"
         style={{
-          backgroundImage: `url('${imgDots}')`,
+          backgroundImage:
+            "radial-gradient(circle at center, rgba(255,255,255,0.1) 0.55px, transparent 0.65px)",
           backgroundSize: "2.54px 2.54px",
-          backgroundRepeat: "repeat",
         }}
       />
 
