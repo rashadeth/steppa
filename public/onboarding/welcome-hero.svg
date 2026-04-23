@@ -26,7 +26,7 @@
     <path d="M160 320 L80 520 L120 540 L175 350 Z"/>
     <path d="M280 340 L380 520 L420 500 L315 320 Z"/>
   </g>
-  <!-- Abstract card slab -->
+  <!-- Abstract card slab -->
   <rect x="520" y="380" width="280" height="180" rx="16" fill="#1a1720" stroke="#ffb89e" stroke-opacity="0.35" stroke-width="2"/>
   <rect x="545" y="415" width="120" height="14" rx="4" fill="#f16746" opacity="0.85"/>
   <rect x="545" y="445" width="200" height="10" rx="3" fill="#3d3848"/>

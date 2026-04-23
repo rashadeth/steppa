@@ -1,16 +1,15 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import ProgressBar from "./ProgressBar";
 
 /**
- * Hero must live under `public/` (e.g. `/onboarding/welcome-hero.svg`).
- * Do not use `https://www.figma.com/api/mcp/asset/...` here: those URLs come from
- * Cursor’s Figma MCP bridge, expire or 404 without that session, and never ship as
- * stable assets. Export the frame from Figma (right‑click → Export → PNG/WebP/SVG)
- * and save it into `public/onboarding/` with this filename, or swap the path below.
+ * File: `public/onboarding/welcome-hero.svg` → URL must be root-absolute (`/onboarding/...`),
+ * never `./` or `../`, so it resolves on Vercel the same as locally. Match filename casing exactly.
+ * Do not use Figma MCP `figma.com/api/mcp/asset/...` URLs in production.
  */
-const imgHero = "/onboarding/welcome-hero.svg";
+const ONBOARDING_WELCOME_HERO = "/onboarding/welcome-hero.svg" as const;
 const STEP2_LOTTIES = [
   "https://lottie.host/673c83b0-6903-48c6-bb53-c4f7f517b493/dnUxbVvaJU.lottie",
   "https://lottie.host/53c6648d-f405-4e58-93a4-3662c84442de/wGn4IFqTGD.lottie",
@@ -70,11 +69,15 @@ export default function Step1Welcome({ onNext }: Props) {
         }
       `}</style>
 
-      {/* Full-bleed background (behind UI) */}
-      <img
-        src={imgHero}
+      {/* Full-bleed background (behind UI) — public/ is served from site root */}
+      <Image
+        src={ONBOARDING_WELCOME_HERO}
         alt="Person running with credit card"
-        className="pointer-events-none absolute inset-0 z-0 h-full w-full object-cover object-top"
+        fill
+        priority
+        unoptimized
+        sizes="100vw"
+        className="pointer-events-none absolute inset-0 z-0 object-cover object-top"
       />
       <div className="pointer-events-none absolute inset-0 z-0 bg-[rgba(239,93,62,0.25)]" />
       <div
