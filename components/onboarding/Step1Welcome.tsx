@@ -5,11 +5,10 @@ import { useEffect, useState } from "react";
 import ProgressBar from "./ProgressBar";
 
 /**
- * File: `public/onboarding/welcome-hero.svg` → URL must be root-absolute (`/onboarding/...`),
- * never `./` or `../`, so it resolves on Vercel the same as locally. Match filename casing exactly.
- * Do not use Figma MCP `figma.com/api/mcp/asset/...` URLs in production.
+ * Raster hero shipped in repo: `public/onboarding/welcome-hero.png` → `/onboarding/welcome-hero.png`.
+ * Root-absolute path only (no `./` / `../`); keep filename casing in sync with the file on disk.
  */
-const ONBOARDING_WELCOME_HERO = "/onboarding/welcome-hero.svg" as const;
+const ONBOARDING_WELCOME_HERO = "/onboarding/welcome-hero.png" as const;
 const STEP2_LOTTIES = [
   "https://lottie.host/673c83b0-6903-48c6-bb53-c4f7f517b493/dnUxbVvaJU.lottie",
   "https://lottie.host/53c6648d-f405-4e58-93a4-3662c84442de/wGn4IFqTGD.lottie",
@@ -72,10 +71,9 @@ export default function Step1Welcome({ onNext }: Props) {
       {/* Full-bleed background (behind UI) — public/ is served from site root */}
       <Image
         src={ONBOARDING_WELCOME_HERO}
-        alt="Person running with credit card"
+        alt="Runners in warm light at a group run"
         fill
         priority
-        unoptimized
         sizes="100vw"
         className="pointer-events-none absolute inset-0 z-0 object-cover object-top"
       />
