@@ -26,6 +26,15 @@ const dmSans = DM_Sans({
 export const metadata: Metadata = {
   title: "Steppa — Turn Discipline into Money",
   description: "Lock your money. Unlock it with effort. Complete daily step goals to earn your money back.",
+  manifest: "/manifest.json",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "black-translucent",
+    title: "Steppa",
+  },
+  icons: {
+    apple: "/icons/apple-touch-icon.png",
+  },
 };
 
 export const viewport: Viewport = {

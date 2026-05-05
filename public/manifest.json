@@ -1,0 +1,28 @@
+{
+  "name": "Steppa",
+  "short_name": "Steppa",
+  "description": "Lock your money. Unlock it with effort. Complete daily step goals to earn your money back.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#5e160a",
+  "theme_color": "#F16746",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
