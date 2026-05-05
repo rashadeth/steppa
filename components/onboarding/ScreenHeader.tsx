@@ -23,7 +23,10 @@ export default function ScreenHeader({
   return (
     // flex flex-col makes back-button and progress bar stack vertically.
     // gap-6 (24px) is the guaranteed space between them — no absolute positioning.
-    <div className="flex flex-col gap-6 pt-10 px-4">
+    <div
+      className="flex flex-col gap-6 px-4"
+      style={{ paddingTop: "max(2.5rem, env(safe-area-inset-top))" }}
+    >
       <button
         onClick={onBack}
         className="w-11 h-11 flex items-center justify-center rounded-full bg-[#fff3ef] self-start shrink-0"
