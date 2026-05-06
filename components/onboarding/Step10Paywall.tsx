@@ -29,7 +29,7 @@ interface Props {
 
 export default function Step10Paywall({ onUpgrade, onClose }: Props) {
   return (
-    <div className="relative flex h-full min-h-0 flex-col overflow-hidden bg-white">
+    <div className="relative flex min-h-dvh flex-col overflow-hidden bg-white">
       {/* Close button — absolute over hero */}
       <button
         onClick={onClose}

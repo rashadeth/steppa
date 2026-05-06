@@ -22,7 +22,7 @@ export default function EmptyStateHome({
   const timeGreeting = useTimeOfDayGreeting();
 
   return (
-    <div className="flex h-full min-h-0 flex-col bg-white">
+    <div className="flex min-h-dvh flex-col bg-white">
       <div className="flex shrink-0 items-center justify-between px-4 pt-[74px] pb-6">
         <div className="flex flex-col gap-[2px]">
           <p className="font-[family-name:var(--font-manrope)] font-medium text-[14px] leading-[14px] tracking-[-0.7px] text-[#444459]">

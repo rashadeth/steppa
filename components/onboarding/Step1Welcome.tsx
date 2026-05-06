@@ -46,7 +46,7 @@ export default function Step1Welcome({ onNext }: Props) {
   }, []);
 
   return (
-    <div className="relative flex h-full min-h-0 w-full flex-col overflow-hidden bg-[#16141a]">
+    <div className="relative flex min-h-dvh w-full flex-col overflow-hidden bg-[#16141a]">
       <style>{`
         .word-ticker {
           display: inline-block;

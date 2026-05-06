@@ -78,7 +78,7 @@ export default function OnboardingFlow() {
   const greetingName = state.preferredName?.trim() || "Friend";
 
   return (
-    <div className="flex h-full min-h-0 w-full flex-col">
+    <div className="flex min-h-dvh w-full flex-col">
       <img src={imgPaywallHero} alt="" aria-hidden="true" className="hidden" loading="eager" />
 
       {/* 1 — Welcome */}

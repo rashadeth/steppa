@@ -54,7 +54,7 @@ export default function Step4Duration({ onNext, onBack, defaultValue }: Props) {
   }
 
   return (
-    <div className="relative flex h-full min-h-0 flex-col overflow-hidden bg-white">
+    <div className="relative flex min-h-dvh flex-col overflow-hidden bg-white">
       <div className="flex min-h-0 flex-1 flex-col">
         <div className="min-h-0 flex-1 overflow-y-auto overscroll-y-contain">
           <div className="flex flex-col gap-4 pb-6">

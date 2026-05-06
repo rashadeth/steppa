@@ -87,7 +87,7 @@ export default function Step9GoalCreated({ stepGoal, lockAmount, duration, onNex
   useEffect(() => { setMounted(true); }, []);
 
   return (
-    <div className="relative flex h-full min-h-0 flex-col overflow-hidden bg-[#5e160a]">
+    <div className="relative flex min-h-dvh flex-col overflow-hidden bg-[#5e160a]">
 
       {/* Keyframes */}
       <style>{`
@@ -158,7 +158,7 @@ export default function Step9GoalCreated({ stepGoal, lockAmount, duration, onNex
         </div>
       )}
 
-      <div className="relative z-20 flex h-full min-h-0 flex-col">
+      <div className="relative z-20 flex flex-1 flex-col">
 
         <div className="flex shrink-0 items-center justify-between px-5 py-[14px] text-white">
           <span className="font-[family-name:var(--font-manrope)] font-semibold text-[15px] leading-5">
