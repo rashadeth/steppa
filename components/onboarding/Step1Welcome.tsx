@@ -10,9 +10,9 @@ import ProgressBar from "./ProgressBar";
  */
 const ONBOARDING_WELCOME_HERO = "/onboarding/welcome-hero.png" as const;
 const STEP2_LOTTIES = [
-  "https://lottie.host/673c83b0-6903-48c6-bb53-c4f7f517b493/dnUxbVvaJU.lottie",
-  "https://lottie.host/53c6648d-f405-4e58-93a4-3662c84442de/wGn4IFqTGD.lottie",
-  "https://lottie.host/62ae93a0-a38c-43e2-9b04-533ac812f293/q7u4Hv3Jck.lottie",
+  "/lottie/lock-money.lottie",
+  "/lottie/hit-steps.lottie",
+  "/lottie/unlock-cash.lottie",
 ];
 
 const FLIP_WORDS = ["discipline", "patience", "hardwork"];
