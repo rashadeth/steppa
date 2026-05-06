@@ -117,7 +117,7 @@ body {
   width: 100%;
   height: 100dvh;
   padding-bottom: env(safe-area-inset-bottom);
-  background-color: #ffffff; /* white — fills safe area zone on white screens */
+  background-color: #2B1615; /* matches welcome screen dark bottom section */
   overflow: visible;
 }
 
