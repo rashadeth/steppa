@@ -95,13 +95,13 @@ body {
 }
 
 html {
-  background-color: #5e160a;
+  background-color: #ffffff;
 }
 
 body {
   display: flex;
   flex-direction: column;
-  background-color: #5e160a;
+  background-color: #ffffff;
 }
 
 /* app-root fills the body flex column */

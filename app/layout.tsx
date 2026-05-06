@@ -55,7 +55,7 @@ export default function RootLayout({
     <html
       lang="en"
       className={`${manrope.variable} ${alice.variable} ${dmSans.variable} m-0 w-full p-0 antialiased`}
-      style={{ backgroundColor: "#5e160a" }}
+      style={{ backgroundColor: "#ffffff" }}
     >
       <head>
         {/* iOS splash screens — one per physical resolution */}
