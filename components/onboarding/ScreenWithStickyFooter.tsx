@@ -28,7 +28,7 @@ export default function ScreenWithStickyFooter({
   scrollClassName = "",
 }: Props) {
   return (
-    <div className={`flex min-h-dvh flex-col ${className}`}>
+    <div className={`flex h-dvh flex-col ${className}`}>
       <div
         className={`min-h-0 flex-1 overflow-y-auto overscroll-y-contain ${scrollClassName}`}
       >
