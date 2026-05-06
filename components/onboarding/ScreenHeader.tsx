@@ -25,7 +25,7 @@ export default function ScreenHeader({
     // gap-6 (24px) is the guaranteed space between them — no absolute positioning.
     <div
       className="flex flex-col gap-6 px-4"
-      style={{ paddingTop: "max(2.5rem, env(safe-area-inset-top))" }}
+      style={{ paddingTop: "max(2.5rem, calc(env(safe-area-inset-top) + 10px))" }}
     >
       <button
         onClick={onBack}

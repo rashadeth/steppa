@@ -89,7 +89,7 @@ export default function Step1Welcome({ onNext }: Props) {
 
       {/* Foreground: progress + scroll + sticky CTA */}
       <div className="relative z-10 flex h-full min-h-0 flex-col">
-        <div className="shrink-0 px-4 pt-10">
+        <div className="shrink-0 px-4" style={{ paddingTop: "max(2.5rem, calc(env(safe-area-inset-top) + 10px))" }}>
           <ProgressBar step={1} total={5} light progressGroup="intro" />
         </div>
 

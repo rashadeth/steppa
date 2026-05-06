@@ -93,12 +93,12 @@ export default function Step2HowItWorks({ onNext, onSkip }: Props) {
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
     >
-      <div className="shrink-0 px-4 pt-10">
+      <div className="shrink-0 px-4" style={{ paddingTop: "max(2.5rem, calc(env(safe-area-inset-top) + 10px))" }}>
         <ProgressBar step={3} total={5} progressGroup="intro" />
       </div>
 
-      <div className="min-h-0 flex-1 overflow-y-auto overscroll-y-contain">
-        <div className="relative flex min-h-0 flex-col items-center justify-center px-6 py-8">
+      <div className="min-h-0 flex-1 flex flex-col overflow-y-auto overscroll-y-contain">
+        <div className="relative flex flex-1 flex-col items-center justify-center px-6 py-8">
 
         {/* Lottie animations — all preloaded, crossfade via opacity */}
         <div className="relative w-full max-w-[280px] h-[250px] shrink-0">
@@ -141,7 +141,7 @@ export default function Step2HowItWorks({ onNext, onSkip }: Props) {
         </div>
         </div>
 
-        <div className="flex items-center justify-center gap-2 pb-8">
+        <div className="shrink-0 flex items-center justify-center gap-2 pb-4">
         {SLIDES.map((_, i) => (
           <button
             key={i}

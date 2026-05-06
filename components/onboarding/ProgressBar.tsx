@@ -67,7 +67,7 @@ export default function ProgressBar({
     };
 
     if (from === undefined) {
-      animateFromTo(0, targetPct);
+      commit(targetPct);
     } else if (from !== targetPct) {
       animateFromTo(from, targetPct);
     } else {
