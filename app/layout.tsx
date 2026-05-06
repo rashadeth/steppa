@@ -52,7 +52,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${manrope.variable} ${alice.variable} ${dmSans.variable} m-0 h-full w-full p-0 antialiased`}
+      className={`${manrope.variable} ${alice.variable} ${dmSans.variable} m-0 w-full p-0 antialiased`}
       style={{ backgroundColor: "#5e160a" }}
     >
       <head>
@@ -69,7 +69,7 @@ export default function RootLayout({
         <link rel="apple-touch-startup-image" href="/splash/splash-750x1334.png"  media="screen and (device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)" />
         <link rel="apple-touch-startup-image" href="/splash/splash-640x1136.png"  media="screen and (device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)" />
       </head>
-      <body className="m-0 min-h-dvh w-full bg-gray-100 p-0 text-[var(--foreground)] antialiased">
+      <body className="m-0 min-h-dvh w-full p-0 text-[var(--foreground)] antialiased">
         <SplashScreen />
         <div className="app-root">{children}</div>
       </body>

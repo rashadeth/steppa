@@ -87,26 +87,27 @@
 /* Full-viewport shell: no outer gaps (mobile edge-to-edge). */
 html {
   width: 100%;
-  height: 100%;
+  min-height: 100dvh;
   margin: 0;
   padding: 0;
+  background-color: #5e160a;
 }
 
 body {
   width: 100%;
-  height: 100%;
+  min-height: 100dvh;
   margin: 0;
   padding: 0;
-  min-height: 100dvh;
   display: flex;
   flex-direction: column;
+  background-color: #5e160a;
 }
 
 .app-root {
   box-sizing: border-box;
   width: 100%;
   flex: 1 1 auto;
-  min-height: 0;
+  min-height: 100dvh;
   margin: 0;
   padding: 0;
   display: flex;
