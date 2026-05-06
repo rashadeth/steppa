@@ -104,15 +104,21 @@ body {
   background-color: #ffffff;
 }
 
-/* app-root fills the body flex column */
+/* app-root fills the body flex column.
+ * padding-bottom: env(safe-area-inset-bottom) fills the home-indicator zone with
+ * the root background colour. Screen components (h-dvh) overflow into this zone
+ * so their own background covers it — overflow: visible lets that happen while
+ * body's overflow: hidden acts as the outer guard. */
 .app-root {
   box-sizing: border-box;
   flex: 1 1 auto;
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: 100dvh; /* explicit — not relative to parent */
-  overflow: hidden;
+  height: 100dvh;
+  padding-bottom: env(safe-area-inset-bottom);
+  background-color: #ffffff;
+  overflow: visible;
 }
 
 /*
