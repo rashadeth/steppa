@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Manrope, Alice, DM_Sans } from "next/font/google";
 import "./globals.css";
+import SplashScreen from "@/components/SplashScreen";
 
 const manrope = Manrope({
   variable: "--font-manrope",
@@ -52,6 +53,7 @@ export default function RootLayout({
     <html
       lang="en"
       className={`${manrope.variable} ${alice.variable} ${dmSans.variable} m-0 h-full w-full p-0 antialiased`}
+      style={{ backgroundColor: "#5e160a" }}
     >
       <head>
         {/* iOS splash screens — one per physical resolution */}
@@ -68,6 +70,7 @@ export default function RootLayout({
         <link rel="apple-touch-startup-image" href="/splash/splash-640x1136.png"  media="screen and (device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)" />
       </head>
       <body className="m-0 min-h-dvh w-full bg-gray-100 p-0 text-[var(--foreground)] antialiased">
+        <SplashScreen />
         <div className="app-root">{children}</div>
       </body>
     </html>
