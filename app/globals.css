@@ -86,14 +86,9 @@
 
 /* Full-viewport shell: no outer gaps (mobile edge-to-edge). */
 html,
-body,
-#__next,
-main,
-div[data-nextjs-scroll-focus-boundary],
-.app-root {
+body {
   width: 100%;
   height: 100dvh;
-  min-height: 100dvh;
   margin: 0;
   padding: 0;
   overflow: hidden;
@@ -109,11 +104,30 @@ body {
   background-color: #5e160a;
 }
 
+/* app-root fills the body flex column */
 .app-root {
   box-sizing: border-box;
   flex: 1 1 auto;
   display: flex;
   flex-direction: column;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+/*
+ * Next.js App Router injects div[data-nextjs-scroll-focus-boundary] between
+ * .app-root and the page. Without flex layout here, children's flex-1/flex-grow
+ * classes have no effect and the height chain breaks.
+ * This is the single fix point — everything downstream inherits correctly.
+ */
+div[data-nextjs-scroll-focus-boundary] {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
 }
 
 /* ─── Mobile touch fixes ─────────────────────────────────────── */
