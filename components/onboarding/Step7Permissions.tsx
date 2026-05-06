@@ -41,7 +41,7 @@ export default function Step7Permissions({ onNext, onSkip, onBack }: Props) {
   }
 
   return (
-    <div className="relative flex min-h-dvh flex-col bg-white shadow-[0px_0px_20px_0px_rgba(0,0,0,0.1)]">
+    <div className="relative flex h-dvh flex-col bg-white shadow-[0px_0px_20px_0px_rgba(0,0,0,0.1)]">
       {isGrantingAccess && (
         <div className="absolute inset-0 z-30 flex items-center justify-center bg-[rgba(8,8,20,0.3)] backdrop-blur-[2px]">
           <div className="w-[240px] rounded-3xl bg-white px-6 py-5 shadow-[0px_12px_30px_rgba(11,18,32,0.15)] border border-[#e6e9ef]">

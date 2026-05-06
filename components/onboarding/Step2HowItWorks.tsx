@@ -89,7 +89,7 @@ export default function Step2HowItWorks({ onNext, onSkip }: Props) {
 
   return (
     <div
-      className="flex min-h-dvh flex-col bg-white"
+      className="flex h-dvh flex-col bg-white"
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
     >
