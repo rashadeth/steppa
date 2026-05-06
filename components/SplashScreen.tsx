@@ -24,7 +24,7 @@ export default function SplashScreen() {
         position: "fixed",
         inset: 0,
         zIndex: 9999,
-        backgroundColor: "#5e160a",
+        backgroundColor: "#16141a",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
