@@ -139,6 +139,21 @@ export default function Step1Welcome({ onNext }: Props) {
           </button>
         </div>
       </div>
+      {/* Fills the safe-area-inset-bottom zone with the screen's dark color.
+          position:fixed escapes the overflow:hidden chain so the color reaches
+          the very bottom of the viewport. Unmounts with this screen. */}
+      <div
+        style={{
+          position: "fixed",
+          bottom: 0,
+          left: 0,
+          right: 0,
+          height: "env(safe-area-inset-bottom)",
+          background: "#2B1615",
+          zIndex: 0,
+          pointerEvents: "none",
+        }}
+      />
     </div>
   );
 }

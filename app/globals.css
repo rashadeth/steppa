@@ -117,7 +117,7 @@ body {
   width: 100%;
   height: 100dvh;
   padding-bottom: env(safe-area-inset-bottom);
-  background-color: #2B1615; /* matches welcome screen dark bottom section */
+  background-color: #ffffff; /* white — matches white onboarding screens */
   overflow: visible;
 }
 
