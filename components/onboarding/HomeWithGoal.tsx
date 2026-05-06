@@ -147,7 +147,7 @@ export default function HomeWithGoal({
         onAbortChallenge={onAbortChallenge}
       />
 
-      <div className="sticky bottom-0 z-10 mt-3 shrink-0 border-t border-[#e6e9ef] bg-white px-4 pt-3 pb-[max(1rem,calc(env(safe-area-inset-bottom,0px)+0.75rem))]">
+      <div className="sticky bottom-0 z-10 mt-3 shrink-0 border-t border-[#e6e9ef] bg-white px-4 pt-3 pb-[max(1rem,env(safe-area-inset-bottom,0px))]">
         <div className="flex items-center justify-center gap-[55px]">
           <div className="flex flex-col items-center gap-2">
             <House size={20} weight="fill" color="#f16746" />

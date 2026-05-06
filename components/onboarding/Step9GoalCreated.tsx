@@ -207,7 +207,7 @@ export default function Step9GoalCreated({ stepGoal, lockAmount, duration, onNex
           </div>
         </div>
 
-        <div className="su5 sticky bottom-0 z-20 shrink-0 border-t border-transparent bg-[#5e160a] px-6 pt-4 pb-[max(1.25rem,calc(env(safe-area-inset-bottom,0px)+1.25rem))]">
+        <div className="su5 sticky bottom-0 z-20 shrink-0 border-t border-transparent bg-[#5e160a] px-6 pt-4 pb-[max(1.25rem,env(safe-area-inset-bottom,0px))]">
           <button
             onClick={onNext}
             className="w-full h-[54px] flex items-center justify-center gap-2 rounded-full bg-[#f16746] shadow-[0px_4px_12px_0px_rgba(242,105,71,0.28)] font-[family-name:var(--font-manrope)] font-extrabold text-[17px] text-white active:scale-[0.97] transition-transform cursor-pointer"

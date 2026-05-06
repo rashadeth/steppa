@@ -158,7 +158,7 @@ export default function Step2HowItWorks({ onNext, onSkip }: Props) {
       </div>
       </div>
 
-      <div className="sticky bottom-0 z-20 flex shrink-0 items-center gap-3 border-t border-transparent bg-white px-4 pt-4 pb-[max(1.25rem,calc(env(safe-area-inset-bottom,0px)+1.25rem))]">
+      <div className="sticky bottom-0 z-20 flex shrink-0 items-center gap-3 border-t border-transparent bg-white px-4 pt-4 pb-[max(1.25rem,env(safe-area-inset-bottom,0px))]">
         {/* Skip */}
         <button
           type="button"

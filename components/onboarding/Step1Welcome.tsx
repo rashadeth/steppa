@@ -23,7 +23,7 @@ const FLIP_MS = 500;
 const LINE_H = 49;
 
 const FOOTER_SAFE =
-  "pb-[max(1.25rem,calc(env(safe-area-inset-bottom,0px)+1.25rem))]";
+  "pb-[max(1.25rem,env(safe-area-inset-bottom,0px))]";
 
 interface Props {
   onNext: () => void;

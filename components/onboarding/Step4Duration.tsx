@@ -117,7 +117,7 @@ export default function Step4Duration({ onNext, onBack, defaultValue }: Props) {
           </div>
         </div>
 
-        <div className="sticky bottom-0 z-10 shrink-0 border-t border-transparent bg-white px-4 pt-4 pb-[max(1.25rem,calc(env(safe-area-inset-bottom,0px)+1.25rem))]">
+        <div className="sticky bottom-0 z-10 shrink-0 border-t border-transparent bg-white px-4 pt-4 pb-[max(1.25rem,env(safe-area-inset-bottom,0px))]">
           <CTAButton
             onClick={() => selected !== null && onNext(selected)}
             disabled={selected === null}

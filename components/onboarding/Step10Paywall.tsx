@@ -116,7 +116,7 @@ export default function Step10Paywall({ onUpgrade, onClose }: Props) {
       </div>
       </div>
 
-      <div className="sticky bottom-0 z-10 flex shrink-0 flex-col gap-4 border-t border-[#e6e9ef] bg-white px-4 pt-4 pb-[max(1.25rem,calc(env(safe-area-inset-bottom,0px)+1.25rem))]">
+      <div className="sticky bottom-0 z-10 flex shrink-0 flex-col gap-4 border-t border-[#e6e9ef] bg-white px-4 pt-4 pb-[max(1.25rem,env(safe-area-inset-bottom,0px))]">
         <button
           onClick={onUpgrade}
           className="w-full h-[52px] flex items-center justify-center rounded-full bg-[#F16746] border border-white font-[family-name:var(--font-manrope)] font-semibold text-[16px] leading-5 text-white shadow-[0px_5.566px_13.915px_0px_rgba(0,0,0,0.25)] transition-opacity active:opacity-80"

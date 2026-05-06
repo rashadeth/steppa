@@ -4,7 +4,7 @@ import type { ReactNode } from "react";
 
 /** Bottom padding clears iOS home indicator and reduces overlap with Safari’s bottom UI. */
 const FOOTER_SAFE_PAD =
-  "pb-[max(1.25rem,calc(env(safe-area-inset-bottom,0px)+1.25rem))]";
+  "pb-[max(1.25rem,env(safe-area-inset-bottom,0px))]";
 
 type Props = {
   children: ReactNode;
